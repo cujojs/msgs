@@ -1,0 +1,46 @@
+{
+	"name": "integration",
+	"version": "0.0.0-next",
+	"description": "Enterprise integration patterns for JavaScript",
+	"keywords": ["integration", "message", "channel", "eip", "s2js", "spring", "springsource"],
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://opensource.org/licenses/MIT"
+		}
+	],
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/s2js/integration"
+		}
+	],
+	"bugs": "https://github.com/s2js/integration/issues",
+	"maintainers": [
+		{
+			"name": "Scott Andrews",
+			"email": "andrewss@vmware.com",
+			"web": "http://twitter.com/scothis"
+		}
+	],
+	"contributors": [
+		{
+			"name": "Mark Fisher",
+			"email": "markfisher@vmware.com"
+		}
+	],
+	"dependencies": {
+		"when": "~1"
+	},
+	"devDependencies": {
+		"curl": "https://github.com/cujojs/curl/tarball/0.7.2",
+		"poly": "https://github.com/cujojs/poly/tarball/0.5.1",
+		"buster": "",
+		"jshint": ""
+	},
+	"main": "./integration",
+	"scripts": {
+		"test": "jshint *.js adapters aggregators channels test && buster test -e node --color none --reporter specification",
+		"start": "buster static -e browser"
+	}
+}
