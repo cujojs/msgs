@@ -1,6 +1,6 @@
 {
 	"name": "integration",
-	"version": "0.3.0",
+	"version": "0.3.0-next",
 	"description": "Enterprise integration patterns for JavaScript",
 	"keywords": ["integration", "message", "channel", "eip", "s2js", "spring", "springsource"],
 	"licenses": [
