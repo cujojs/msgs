@@ -42,7 +42,7 @@
 			/**
 			 * Add a new handler to receive messages sent to this channel
 			 *
-			 * @param {Handler|String} handler the handler to receive messages
+			 * @param {Handler|string} handler the handler to receive messages
 			 */
 			this.subscribe = function subscribe(handler) {
 				if (handlers.indexOf(handler) >= 0) {
@@ -55,7 +55,7 @@
 			/**
 			 * Removes a handler from receiving messages sent to this channel
 			 *
-			 * @param {Handler|String} handler the handler to stop receiving
+			 * @param {Handler|string} handler the handler to stop receiving
 			 * messages
 			 */
 			this.unsubscribe = function unsubscribe(handler) {

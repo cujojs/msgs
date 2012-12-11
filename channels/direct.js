@@ -40,8 +40,8 @@
 		/**
 		 * Channel that has one, and only one, handler
 		 *
-		 * @param {String} [name] the name to register this channel under
-		 * @param {String|Handler} handler the handler for this channel
+		 * @param {string} [name] the name to register this channel under
+		 * @param {string|Handler} handler the handler for this channel
 		 * @returns {Channle} the channel
 		 */
 		integration.prototype.directChannel = integration.utils.optionalName(function directChannel(name, handler) {

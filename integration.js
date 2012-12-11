@@ -167,7 +167,7 @@
 			 * Find a handler by name. If the handler is not found in the local
 			 * message bus, the parent message bus is queried.
 			 *
-			 * @param {String|Handler} name the handler name to find
+			 * @param {string|Handler} name the handler name to find
 			 * @returns the found handler, undefined when not found
 			 */
 			this.resolveHandler = function resolveHandler(name) {
@@ -191,7 +191,7 @@
 			 * Find a channel by name. If the channel is not found in the local
 			 * message bus, the parent message bus is queried.
 			 *
-			 * @param {String|Channel} name the channel name to find
+			 * @param {string|Channel} name the channel name to find
 			 * @returns the found channel, undefined when not found
 			 */
 			this.resolveChannel = function resolveChannel(name) {
@@ -214,8 +214,8 @@
 			/**
 			 * Create an alias for a handler or channel
 			 *
-			 * @param {String} name the alias
-			 * @param {String|Channel|Handler} component the item to register
+			 * @param {string} name the alias
+			 * @param {string|Channel|Handler} component the item to register
 			 */
 			this.alias = function alias(name, component) {
 				if (!(this.resolveChannel(component) || this.resolveHandler(component) || isRef(component))) {
@@ -252,8 +252,8 @@
 				 * defining contained sub flows that provide entry and exit
 				 * points.
 				 *
-				 * @param {String} [name] the name to export as
-				 * @param {String|Channel} channel the channel to export
+				 * @param {string} [name] the name to export as
+				 * @param {string|Channel} channel the channel to export
 				 */
 				this.exportChannel = function exportChannel(name, channel) {
 					if (arguments.length === 1) {
@@ -318,7 +318,7 @@
 			/**
 			 * Create a new channel to pass messages
 			 *
-			 * @param {String} [name] the name to register this channel under
+			 * @param {string} [name] the name to register this channel under
 			 * @param {Dispatcher} dispatcher dispatching strategy for this
 			 *   channel
 			 * @returns {Channel} a new channel
@@ -386,13 +386,13 @@
 			/**
 			 * Create a new handler
 			 *
-			 * @param {String} [name] the name to register this handler under
+			 * @param {string} [name] the name to register this handler under
 			 * @param {Function} transform function to transform the message
-			 * @param {String|Channel} [outputChannel] where to forward the
+			 * @param {string|Channel} [outputChannel] where to forward the
 			 *   handled message
-			 * @param {String|Channel} [inputChannel] channel to receive
+			 * @param {string|Channel} [inputChannel] channel to receive
 			 *   messages from
-			 * @param {String|Channel} [errorChannel] where to forward the
+			 * @param {string|Channel} [errorChannel] where to forward the
 			 *   message when an error occurs
 			 * @returns a new handler
 			 */
@@ -434,7 +434,7 @@
 			 * each subscriber. Only one handler receives a copy of each
 			 * message sent to this channel.
 			 *
-			 * @param {String} [name] the name to register this channel under
+			 * @param {string} [name] the name to register this channel under
 			 * @param {Function} [loadBalancer] load balancer
 			 * @returns the channel
 			 */
@@ -446,8 +446,8 @@
 			 * Subscribe a handler to a channel. The channel must be
 			 * subscribable
 			 *
-			 * @param {String|Channel} from the publishing channel
-			 * @param {String|Handler} to the consuming handler
+			 * @param {string|Channel} from the publishing channel
+			 * @param {string|Handler} to the consuming handler
 			 */
 			subscribe: function subscribe(from, to) {
 				this.resolveChannel(from).subscribe(to);
@@ -457,8 +457,8 @@
 			 * Unsubscribe a handler from a channel. The channel must be
 			 * subscribable
 			 *
-			 * @param {String|Channel} from the publishing channel
-			 * @param {String|Handler} to the consuming handler
+			 * @param {string|Channel} from the publishing channel
+			 * @param {string|Handler} to the consuming handler
 			 */
 			unsubscribe: function unsubscribe(from, to) {
 				this.resolveChannel(from).unsubscribe(to);
@@ -467,8 +467,8 @@
 			/**
 			 * Wire tap a channel. The channel must be tappable
 			 *
-			 * @param {String|Channel} channel the channel to tap
-			 * @param {String|Handler} handler the receiver of tapped messages
+			 * @param {string|Channel} channel the channel to tap
+			 * @param {string|Handler} handler the receiver of tapped messages
 			 */
 			tap: function tap(channel, handler) {
 				this.resolveChannel(channel).tap(handler);
@@ -477,8 +477,8 @@
 			/**
 			 * Remove a wire tap from a channel. The channel must be tappable
 			 *
-			 * @param {String|Channel} channel the channel to untap
-			 * @param {String|Handler} handler the receiver of tapped messages
+			 * @param {string|Channel} channel the channel to untap
+			 * @param {string|Handler} handler the receiver of tapped messages
 			 */
 			untap: function tap(channel, handler) {
 				this.resolveChannel(channel).untap(handler);
@@ -487,7 +487,7 @@
 			/**
 			 * Create and send a message to a channel
 			 *
-			 * @param {String|Channel} channel the channel to sent the message to
+			 * @param {string|Channel} channel the channel to sent the message to
 			 * @param {Object|Message} payload the message to send
 			 * @param {Object} [headers] headers for the message
 			 */
@@ -498,8 +498,8 @@
 			/**
 			 * Forward a message to a channel
 			 *
-			 * @param {String} [name] the name to register the forward as
-			 * @param {String|Channel} target the channel to forward to
+			 * @param {string} [name] the name to register the forward as
+			 * @param {string|Channel} target the channel to forward to
 			 */
 			bridge: function bridge(name, target) {
 				// optionalName won't work since target may be a string
@@ -517,13 +517,13 @@
 			 * handler is executed in order with the message from the previous
 			 * handler in the pipeline.
 			 *
-			 * @param {String} [name] the name to register the pipeline as
+			 * @param {string} [name] the name to register the pipeline as
 			 * @param {Array[Handler]} handlers array of handlers
-			 * @param {String|Channel} [opts.output] the channel to forward
+			 * @param {string|Channel} [opts.output] the channel to forward
 			 *   messages to
-			 * @param {String|Channel} [opts.input] the channel to receive
+			 * @param {string|Channel} [opts.input] the channel to receive
 			 *   message from
-			 * @param {String|Channel} [opts.error] channel to receive errors
+			 * @param {string|Channel} [opts.error] channel to receive errors
 			 * @returns the pipeline
 			 */
 			chain: optionalName(function chain(name, handlers, opts) {
@@ -545,15 +545,15 @@
 			/**
 			 * Transform messages sent to this channel
 			 *
-			 * @param {String} [name] the name to register the transform as
+			 * @param {string} [name] the name to register the transform as
 			 * @param {Function} translator transform function, invoked with
 			 *   message payload and message headers as args, a new payload
 			 *   must be returned.
-			 * @param {String|Channel} [opts.output] the channel to forward
+			 * @param {string|Channel} [opts.output] the channel to forward
 			 *   transformed messages to
-			 * @param {String|Channel} [opts.input] the channel to receive
+			 * @param {string|Channel} [opts.input] the channel to receive
 			 *   message from
-			 * @param {String|Channel} [opts.error] channel to receive errors
+			 * @param {string|Channel} [opts.error] channel to receive errors
 			 * @returns the transform
 			 */
 			transform: optionalName(function transform(name, translator, opts) {
@@ -567,17 +567,17 @@
 			 * Filter messages based on some criteria. Abandoned messages may
 			 * be forward to a discard channel if defined.
 			 *
-			 * @param {String} [name] the name to register the filter as
+			 * @param {string} [name] the name to register the filter as
 			 * @param {Function} rule filter function, invoked with message
 			 *   payload and message headers as args. If true is returned, the
 			 *   message is forwarded, otherwise it is discarded.
-			 * @param {String|Channel} [opts.output] the channel to forward
+			 * @param {string|Channel} [opts.output] the channel to forward
 			 *   messages to
-			 * @param {String|Channel} [opts.discard] channel to handle
+			 * @param {string|Channel} [opts.discard] channel to handle
 			 *   discarded messages
-			 * @param {String|Channel} [opts.input] the channel to receive
+			 * @param {string|Channel} [opts.input] the channel to receive
 			 *   message from
-			 * @param {String|Channel} [opts.error] channel to receive errors
+			 * @param {string|Channel} [opts.error] channel to receive errors
 			 * @returns the filter
 			 */
 			filter: optionalName(function filter(name, rule, opts) {
@@ -595,14 +595,14 @@
 			/**
 			 * Route messages to handlers defined by the rule. The rule may
 			 *   return 0..n recipient channels.
-			 * @param {String} [name] the name to register the router as
+			 * @param {string} [name] the name to register the router as
 			 * @param {Function} rule function that accepts the message and
 			 *   defined routes returning channels to route the message to
 			 * @param {Object|Array} [opts.routes] channel aliases for the
 			 *   router
-			 * @param {String|Channel} [opts.input] the channel to receive
+			 * @param {string|Channel} [opts.input] the channel to receive
 			 *   message from
-			 * @param {String|Channel} [opts.error] channel to receive errors
+			 * @param {string|Channel} [opts.error] channel to receive errors
 			 * @returns the router
 			 */
 			router: optionalName(function router(name, rule, opts) {
@@ -622,14 +622,14 @@
 			/**
 			 * Split one message into many
 			 *
-			 * @param {String} [name] the name to register the splitter as
+			 * @param {string} [name] the name to register the splitter as
 			 * @param {Function} rule function that accepts a message and
 			 *   returns an array of messages
-			 * @param {String|Channel} [opts.output] the channel to forward
+			 * @param {string|Channel} [opts.output] the channel to forward
 			 *   split messages to
-			 * @param {String|Channel} [opts.input] the channel to receive
+			 * @param {string|Channel} [opts.input] the channel to receive
 			 *   message from
-			 * @param {String|Channel} [opts.error] channel to receive errors
+			 * @param {string|Channel} [opts.error] channel to receive errors
 			 * @returns the splitter
 			 */
 			splitter: optionalName(function splitter(name, rule, opts) {
@@ -648,16 +648,16 @@
 			/**
 			 * Aggregate multiple messages into a single message
 			 *
-			 * @param {String} [name] the name to register the aggregator as
+			 * @param {string} [name] the name to register the aggregator as
 			 * @param {Function} strategy function that accepts a message and
 			 *   a callback function. When the strategy determines a new
 			 *   message is ready, it must invoke the callback function with
 			 *   that message.
-			 * @param {String|Channel} [opts.output] the channel to forward
+			 * @param {string|Channel} [opts.output] the channel to forward
 			 *   aggregated messages to
-			 * @param {String|Channel} [opts.input] the channel to receive
+			 * @param {string|Channel} [opts.input] the channel to receive
 			 *   message from
-			 * @param {String|Channel} [opts.error] channel to receive errors
+			 * @param {string|Channel} [opts.error] channel to receive errors
 			 * @returns the aggregator
 			 */
 			aggregator: optionalName(function aggregator(name, correlator, opts) {
@@ -673,13 +673,13 @@
 			/**
 			 * Log messages at the desired level
 			 *
-			 * @param {String} [name] the name to register the logger as
+			 * @param {string} [name] the name to register the logger as
 			 * @param {Console} [opts.console=console] the console to log with
-			 * @param {String} [opts.level='log'] the console level to log at,
+			 * @param {string} [opts.level='log'] the console level to log at,
 			 *   defaults to 'log'
-			 * @param {Object|String} [opts.prefix] value included with the
+			 * @param {Object|string} [opts.prefix] value included with the
 			 *   logged message
-			 * @param {String|Channel} [opts.tap] the channel to log messages
+			 * @param {string|Channel} [opts.tap] the channel to log messages
 			 *   from
 			 * @returns the logger
 			 */
@@ -706,7 +706,7 @@
 			 * The first argument of the returned function becomes the message
 			 * payload.
 			 *
-			 * @param {String|Channel} output the channel to post messages to
+			 * @param {string|Channel} output the channel to post messages to
 			 * @param {Function} [adapter] function to adapt the arguments into
 			 *   a message payload. The function must return a message payload.
 			 * @returns a common function that sends messages
@@ -727,11 +727,11 @@
 			 * as messages are handled with the message payload provided as an
 			 * argument.
 			 *
-			 * @param {String} [name] the name to register the adapter as
+			 * @param {string} [name] the name to register the adapter as
 			 * @param {Function} func common JS function to invoke
-			 * @param {String|Channel} opts.input the channel to output
+			 * @param {string|Channel} opts.input the channel to output
 			 *   messages for
-			 * @param {String|Channel} [opts.error] channel to receive errors
+			 * @param {string|Channel} [opts.error] channel to receive errors
 			 * @retuns {Handler} the handler for this adapter
 			 */
 			outboundAdapter: optionalName(function outboundAdapter(name, func, opts) {
@@ -747,7 +747,7 @@
 			 * returned function itself returns a promise representing the
 			 * outcome of the message.
 			 *
-			 * @param {String|Channel} output the channel to post messages to
+			 * @param {string|Channel} output the channel to post messages to
 			 * @returns {Function} a function that when invoked places a
 			 *   message on the bus that returns a promise representing the
 			 *   outcome of the message
@@ -771,14 +771,14 @@
 			 * within the application. The service may return an object, which
 			 * becomes the reply message payload, or a promise to defer a reply.
 			 *
-			 * @param {String} [name] the name to register the activator as
+			 * @param {string} [name] the name to register the activator as
 			 * @param {Function} service the service to activate. Invoked with
 			 *   the message payload and headers as arguments.
-			 * @param {String|Channel} [opts.output] the channel to receive
+			 * @param {string|Channel} [opts.output] the channel to receive
 			 *   replies from the service
-			 * @param {String|Channel} [opts.input] the channel to receive
+			 * @param {string|Channel} [opts.input] the channel to receive
 			 *   message from
-			 * @param {String|Channel} [opts.error] channel to receive errors
+			 * @param {string|Channel} [opts.error] channel to receive errors
 			 * @returns the service activator handler
 			 */
 			outboundGateway: optionalName(function outboundGateway(name, service, opts) {

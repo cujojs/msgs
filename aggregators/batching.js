@@ -40,17 +40,17 @@
 		 * first message was received for the chunk.  Either a batch size or
 		 * timeout must be specified.
 		 *
-		 * @param {String} [name] the name to register the aggregator as
-		 * @param {Number} [opts.batch=0] absolute size of a chunk. If <=0,
+		 * @param {string} [name] the name to register the aggregator as
+		 * @param {number} [opts.batch=0] absolute size of a chunk. If <=0,
 		 *   batch size is not a factor
-		 * @param {Number} [opts.timeout=0] number of milliseconds since the
+		 * @param {number} [opts.timeout=0] number of milliseconds since the
 		 *   first message arrived to queue the chunk. If <=0, timeout is not a
 		 *   factor
-		 * @param {String|Channel} [opts.output] the channel to post the
+		 * @param {string|Channel} [opts.output] the channel to post the
 		 *   aggregated messages to
-		 * @param {String|Channel} [opts.input] the channel to receive message
+		 * @param {string|Channel} [opts.input] the channel to receive message
 		 *   from
-		 * @param {String|Channel} [opts.error] channel to receive errors
+		 * @param {string|Channel} [opts.error] channel to receive errors
 		 * @returns the aggregator
 		 * @throws on invalid configuration, batch size or timeout is required
 		 */

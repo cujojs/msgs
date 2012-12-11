@@ -41,7 +41,7 @@
 		 * Create a publish-subscribe channel. Each subscriber receives a copy
 		 * of the messages sent to this channel.
 		 *
-		 * @param {String} [name] the name to register this channel under
+		 * @param {string} [name] the name to register this channel under
 		 * @returns the channel
 		 */
 		integration.prototype.pubsubChannel = integration.utils.optionalName(function pubsubChannel(name) {

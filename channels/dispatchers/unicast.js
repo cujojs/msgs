@@ -58,7 +58,7 @@
 			 * @param {Message} message the message
 			 * @param {Function} handlerResolver handler resolver
 			 * @throws exceptions from recipient handler
-			 * @returns {Boolean} true if the message was received
+			 * @returns {boolean} true if the message was received
 			 */
 			dispatcher.dispatch = function dispatch(message, handlerResolver) {
 				var handlers, handler;

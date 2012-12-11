@@ -41,8 +41,8 @@
 		 * Post messages from Redis to this channel
 		 *
 		 * @param {RedisClient} client the Redis client subscribe with
-		 * @param {String} topic the remote Redis channel to subscribe to
-		 * @param {String|Channel} opts.output channel inbound Redis messages
+		 * @param {string} topic the remote Redis channel to subscribe to
+		 * @param {string|Channel} opts.output channel inbound Redis messages
 		 *   are sent to
 		 */
 		integration.prototype.inboundRedisAdapter = function inboundRedisAdapter(client, topic, opts) {
@@ -58,12 +58,12 @@
 		/**
 		 * Create a handler that publishes messages to Redis
 		 *
-		 * @param {String} name name to register the adapter as
+		 * @param {string} name name to register the adapter as
 		 * @param {RedisClient} client the Redis client to publish with
-		 * @param {String} topic the remote Redis channel to publish to
-		 * @param {String|Channel} [opts.input] channel outbound Redis messages
+		 * @param {string} topic the remote Redis channel to publish to
+		 * @param {string|Channel} [opts.input] channel outbound Redis messages
 		 *   are sent from
-		 * @param {String|Channel} [opts.error] channel exceptions from the
+		 * @param {string|Channel} [opts.error] channel exceptions from the
 		 *   Redis client are sent to
 		 * @returns {Handler} the handler for this adapter
 		 */
@@ -94,12 +94,12 @@
 		 *
 		 * @param {Function} clientFactory function that returns a new Redis
 		 *   client
-		 * @param {String} topic the remote Redis channel to subscribe to
-		 * @param {String|Channel} [opts.input] channel outbound Redis messages
+		 * @param {string} topic the remote Redis channel to subscribe to
+		 * @param {string|Channel} [opts.input] channel outbound Redis messages
 		 *   are sent from
-		 * @param {String|Channel} [opts.output] channel inbound Redis messages
+		 * @param {string|Channel} [opts.output] channel inbound Redis messages
 		 *   are sent to
-		 * @param {String|Channel} [opts.error] channel for thrown exceptions
+		 * @param {string|Channel} [opts.error] channel for thrown exceptions
 		 */
 		integration.prototype.redisGateway = function redisGateway(clientFactory, topic, opts) {
 			if (opts.output) {

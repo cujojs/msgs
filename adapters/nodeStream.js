@@ -38,7 +38,7 @@
 		 * Post messages from this connection to this channel
 		 *
 		 * @param {Connection} connection the connection to receive data from
-		 * @param {String|Channel} opts.output the channel to send data to
+		 * @param {string|Channel} opts.output the channel to send data to
 		 */
 		integration.prototype.inboundNodeStreamAdapter = function inboundNodeStreamAdapter(connection, opts) {
 			connection.on('data', this.inboundAdapter(opts.output));
@@ -47,10 +47,10 @@
 		/**
 		 * Create a handler that writes message payloads to the connection
 		 *
-		 * @param {String} name name to register the adapter as
+		 * @param {string} name name to register the adapter as
 		 * @param {Connection} connection the node stream connection to write
 		 *   to
-		 * @param {String|Channel} [opts.input] the channel to send messages
+		 * @param {string|Channel} [opts.input] the channel to send messages
 		 *   for
 		 * @returns {Handler} the handler for this adapter
 		 */
@@ -72,9 +72,9 @@
 		 * channels. Any exceptions are put on the error channel.
 		 *
 		 * @param {Connection} connection the node stream connection
-		 * @param {String|Channel} [opts.output] channel for inbound messages
-		 * @param {String|Channel} [opts.input] channel for outbound messages
-		 * @param {String|Channel} [opts.error] channel for thrown exceptions
+		 * @param {string|Channel} [opts.output] channel for inbound messages
+		 * @param {string|Channel} [opts.input] channel for outbound messages
+		 * @param {string|Channel} [opts.error] channel for thrown exceptions
 		 */
 		integration.prototype.nodeStreamGateway = function nodeStreamGateway(connection, opts) {
 			if (opts.output) {

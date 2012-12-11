@@ -40,7 +40,7 @@
 		/**
 		 * Receive the next message on a queue
 		 *
-		 * @param {String|Channel} target the channel to receive the message
+		 * @param {string|Channel} target the channel to receive the message
 		 *   from
 		 * @returns {Object} the message payload or undefined if no message is
 		 *   available
@@ -55,7 +55,7 @@
 		 * Create a message queue. Messages are queued and retrieved
 		 * individually.
 		 *
-		 * @param {String} [name] the name to register this channel under
+		 * @param {string} [name] the name to register this channel under
 		 * @param {Queue} [queueStrategy] the queuing strategy for this
 		 *   channel. The queue must support 'push' and 'shift' for adding and
 		 *   removing messages from the queue respectively. Queues may or may

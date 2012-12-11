@@ -43,7 +43,7 @@
 		 *
 		 * @param {MessagePort} port the worker message port to receive
 		 *   messages from
-		 * @param {String|Channel} opts.output the channel to send messages to
+		 * @param {string|Channel} opts.output the channel to send messages to
 		 */
 		integration.prototype.inboundWebWorkerAdapter = function inboundWebWorkerAdapter(port, opts) {
 			port.addEventListener('message', this.inboundAdapter(opts.output, function (event) {
@@ -54,9 +54,9 @@
 		/**
 		 * Create a handler that posts messages to a web worker
 		 *
-		 * @param {String} name name to register the adapter as
+		 * @param {string} name name to register the adapter as
 		 * @param {MessagePort} port the web worker message port to post to
-		 * @param {String|Channel} [opts.input] channel to send messages for
+		 * @param {string|Channel} [opts.input] channel to send messages for
 		 * @returns {Handler} the handler for this adapter
 		 */
 		integration.prototype.outboundWebWorkerAdapter = integration.utils.optionalName(function outboundWebWorkerAdapter(name, port, opts) {
@@ -68,9 +68,9 @@
 		 * on the error channel.
 		 *
 		 * @param {MessagePort} port the web worker message port
-		 * @param {String|Channel} [opts.input] channel for outbound messages
-		 * @param {String|Channel} [opts.output] channel for inbound messages
-		 * @param {String|Channel} [opts.error] channel for thrown exceptions
+		 * @param {string|Channel} [opts.input] channel for outbound messages
+		 * @param {string|Channel} [opts.output] channel for inbound messages
+		 * @param {string|Channel} [opts.error] channel for thrown exceptions
 		 *   or worker errors
 		 */
 		integration.prototype.webWorkerGateway = function webWorkerGateway(port, opts) {

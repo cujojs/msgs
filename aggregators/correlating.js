@@ -43,12 +43,12 @@
 		 * all of the messages from the splitter are received a new message is
 		 * created whose payload is an array of the split messages in order.
 		 *
-		 * @param {String} [name] the name to register the aggregator as
-		 * @param {String|Channel} [opts.output] the channel to post the
+		 * @param {string} [name] the name to register the aggregator as
+		 * @param {string|Channel} [opts.output] the channel to post the
 		 *   aggregated messages to
-		 * @param {String|Channel} [opts.input] the channel to receive message
+		 * @param {string|Channel} [opts.input] the channel to receive message
 		 *   from
-		 * @param {String|Channel} [opts.error] channel to receive errors
+		 * @param {string|Channel} [opts.error] channel to receive errors
 		 * @returns the aggregator
 		 */
 		integration.prototype.correlatingAggregator = function correlatingAggregator(name, opts) {

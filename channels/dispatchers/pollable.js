@@ -58,7 +58,7 @@
 			 *
 			 * @param {Message} message the message to queue
 			 * @param {Function} handlerResolver handler resolver
-			 * @returns {Boolean} true if enqueueing is successful
+			 * @returns {boolean} true if enqueueing is successful
 			 */
 			dispatcher.dispatch = function dispatch(message, handlerResolver) {
 				try {

@@ -35,7 +35,7 @@
 		/**
 		 * Dispatch messages to a specific handler
 		 *
-		 * @param {String|Handler} handler where to forward messages
+		 * @param {string|Handler} handler where to forward messages
 		 */
 		function directDispatcher(handler) {
 			var dispatcher = {};

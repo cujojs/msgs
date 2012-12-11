@@ -41,7 +41,7 @@
 		 * Post messages from this socket to this channel
 		 *
 		 * @param {WebSocket} socket the socket to receive data from
-		 * @param {String|Channel} opts.output the channel to send data to
+		 * @param {string|Channel} opts.output the channel to send data to
 		 */
 		integration.prototype.inboundWebSocketAdapter = function inboundWebSocketAdapter(socket, opts) {
 			socket.addEventListener('message', this.inboundAdapter(opts.output, function (message) {
@@ -52,9 +52,9 @@
 		/**
 		 * Create a handler that writes message payloads to the socket
 		 *
-		 * @param {String} name name to register the adapter as
+		 * @param {string} name name to register the adapter as
 		 * @param {WebSocket} socket the web socket to write to
-		 * @param {String|Channel} [opts.input] channel to send messages for
+		 * @param {string|Channel} [opts.input] channel to send messages for
 		 * @returns {Handler} the handler for this adapter
 		 */
 		integration.prototype.outboundWebSocketAdapter = integration.utils.optionalName(function outboundWebSocketAdapter(name, socket, opts) {
@@ -75,9 +75,9 @@
 		 * reused. Any exceptions are put on the error channel.
 		 *
 		 * @param {WebSocket} socket the web socket
-		 * @param {String|Channel} [opts.input] channel for outbound messages
-		 * @param {String|Channel} [opts.output] channel for inbound messages
-		 * @param {String|Channel} [opts.error] channel for thrown exceptions
+		 * @param {string|Channel} [opts.input] channel for outbound messages
+		 * @param {string|Channel} [opts.output] channel for inbound messages
+		 * @param {string|Channel} [opts.error] channel for thrown exceptions
 		 *   or socket errors
 		 */
 		integration.prototype.webSocketGateway = function webSocketGateway(socket, opts) {
