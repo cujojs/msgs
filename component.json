@@ -1,0 +1,8 @@
+{
+	"name": "integration",
+	"version": "0.3.0-next",
+	"main": "./integration.js",
+	"dependencies": {
+		"when": "~1"
+	}
+}

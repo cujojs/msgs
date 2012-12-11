@@ -28,7 +28,7 @@ config['integration:node'] = {
 	environment: 'node',
 	rootPath: '../',
 	tests: [
-		//'test/**/*-test-node.js',
+		'test/**/*-test-node.js',
 		'test/**/*-test.js'
 	],
 	testHelpers: [
