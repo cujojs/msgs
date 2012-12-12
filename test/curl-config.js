@@ -20,14 +20,11 @@
  * IN THE SOFTWARE.
  */
 
-(function (g) {
+(function (global) {
 
-	g.curl = {
-		debug: true,
-		apiName: 'curl',
-		baseUrl: '',
+	global.curl = {
 		packages: [
-			{ name: 'integration', location: '', main: 'integration' },
+			{ name: 'integration', location: './', main: 'integration' },
 			{ name: 'curl', location: 'node_modules/curl/src/curl', main: 'curl' },
 			{ name: 'poly', location: 'node_modules/poly', main: 'poly' },
 			{ name: 'when', location: 'node_modules/when', main: 'when' }
