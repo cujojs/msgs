@@ -43,18 +43,12 @@ config['integration:browser'] = {
 	resources: [
 		// '**', // ** is busted in buster
 		'*.js',
-		'adapters/*.js',
-		'aggregators/*.js',
-		'channels/*.js',
-		'channels/dispatchers/*.js',
-		'channels/*.js',
-		'node_modules/curl/src/*.js',
-		'node_modules/curl/src/curl/*.js',
-		'node_modules/curl/src/curl/plugin/*.js',
-		'node_modules/when/*.js',
-		'node_modules/poly/*.js',
-		'node_modules/poly/lib/*.js',
-		'node_modules/poly/support/*.js'
+		'adapters/**/*.js',
+		'aggregators/**/*.js',
+		'channels/**/*.js',
+		'node_modules/curl/**/*.js',
+		'node_modules/poly/**/*.js',
+		'node_modules/when/**/*.js'
 	],
 	libs: [
 		'test/curl-config.js',
