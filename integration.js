@@ -21,7 +21,7 @@
  */
 
 (function (define) {
-	"use strict";
+	'use strict';
 
 	var undef;
 
@@ -754,7 +754,7 @@
 			 */
 			inboundGateway: function inboundGateway(output) {
 				return function (payload) {
-					var message, defer;
+					var defer;
 
 					defer = when.defer();
 					this.send(output, payload, {

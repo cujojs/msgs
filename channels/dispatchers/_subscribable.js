@@ -21,7 +21,7 @@
  */
 
 (function (define) {
-	"use strict";
+	'use strict';
 
 	var undef;
 
@@ -30,7 +30,7 @@
 	 *
 	 * @author Scott Andrews
 	 */
-	define(function (require) {
+	define(function (/* require */) {
 
 		/**
 		 * Subscribable dispatcher
@@ -97,7 +97,7 @@
 			 * @param {Message} message the message to send
 			 * @param {Function} handlerResolver handler resolver
 			 */
-			dispatch: function dispatch(message, handlerResolver) {
+			dispatch: function dispatch(/* message, handlerResolver */) {
 				// to be overridden
 				return false;
 			}

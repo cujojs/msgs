@@ -21,7 +21,7 @@
  */
 
 (function (define) {
-	"use strict";
+	'use strict';
 
 	var undef;
 

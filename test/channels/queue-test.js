@@ -21,7 +21,7 @@
  */
 
 (function (buster, define) {
-	"use strict";
+	'use strict';
 
 	var assert, refute, fail, undef;
 

@@ -40,7 +40,7 @@
 	},
 	"main": "./integration",
 	"scripts": {
-		"test": "jshint *.js adapters aggregators channels test && buster test -e node --color none --reporter specification",
+		"test": "jshint . && buster test -e node --color none --reporter specification",
 		"start": "buster static -e browser"
 	}
 }

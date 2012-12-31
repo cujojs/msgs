@@ -21,7 +21,7 @@
  */
 
 (function (buster, define) {
-	"use strict";
+	'use strict';
 
 	var assert, refute, fail, undef;
 
@@ -68,7 +68,7 @@
 				refute.equals(bus._message().headers.id, bus._message().headers.id);
 			},
 			'should create channels that pass messages': function () {
-				var publisher, consumer, message;
+				var publisher, consumer;
 
 				publisher = bus.channel();
 				consumer = {
@@ -222,7 +222,7 @@
 				child = parent.bus();
 
 				callback = this.spy(function (message) {
-					assert.same("you're dead to me", message);
+					assert.same('you\'re dead to me', message);
 				});
 
 				channel = child.channel();
@@ -230,7 +230,7 @@
 				parent.deadLetterChannel.subscribe(parent.outboundAdapter(callback));
 				child.deadLetterChannel.subscribe(child.outboundAdapter(callback));
 
-				bus.send(channel, "you're dead to me");
+				bus.send(channel, 'you\'re dead to me');
 				assert.same(2, callback.callCount);
 			},
 			'should receive invalid messages at local and parent channels': function () {
@@ -240,7 +240,7 @@
 				child = parent.bus();
 
 				callback = this.spy(function (message) {
-					assert.same("let's hope this works", message);
+					assert.same('let\'s hope this works', message);
 				});
 
 				channel = child.channel();
@@ -250,7 +250,7 @@
 
 				channel.subscribe(child.outboundAdapter(function () { throw new Error(); }));
 
-				bus.send(channel, "let's hope this works");
+				bus.send(channel, 'let\'s hope this works');
 				assert.same(2, callback.callCount);
 			},
 			'should dispatch messages to a single subscriber for default channels': function () {
@@ -276,15 +276,15 @@
 
 				channel = bus.channel();
 				tap = this.spy(function (message) {
-					assert.equals("it feels like we're being watched", message);
+					assert.equals('it feels like we\'re being watched', message);
 				});
 				sub = this.spy(function (message) {
-					assert.equals("it feels like we're being watched", message);
+					assert.equals('it feels like we\'re being watched', message);
 				});
 				bus.tap(channel, bus.outboundAdapter(tap));
 				bus.subscribe(channel, bus.outboundAdapter(sub));
 
-				bus.send(channel, "it feels like we're being watched");
+				bus.send(channel, 'it feels like we\'re being watched');
 
 				assert.same(1, tap.callCount);
 				assert.same(1, sub.callCount);
@@ -294,24 +294,24 @@
 
 				channel = bus.channel();
 				tapA = this.spy(function (message) {
-					assert.equals("it feels like we're being watched", message);
+					assert.equals('it feels like we\'re being watched', message);
 				});
 				tapB = this.spy(function (message) {
-					assert.equals("it feels like we're being watched", message);
+					assert.equals('it feels like we\'re being watched', message);
 				});
 				subA = this.spy(function (message) {
-					assert.equals("it feels like we're being watched", message);
+					assert.equals('it feels like we\'re being watched', message);
 				});
 				subB = this.spy(function (message) {
-					assert.equals("it feels like we're being watched", message);
+					assert.equals('it feels like we\'re being watched', message);
 				});
 				bus.tap(channel, bus.outboundAdapter(tapA));
 				bus.tap(channel, bus.outboundAdapter(tapB));
 				bus.subscribe(channel, bus.outboundAdapter(subA));
 				bus.subscribe(channel, bus.outboundAdapter(subB));
 
-				bus.send(channel, "it feels like we're being watched");
-				bus.send(channel, "it feels like we're being watched");
+				bus.send(channel, 'it feels like we\'re being watched');
+				bus.send(channel, 'it feels like we\'re being watched');
 
 				assert.same(2, tapA.callCount);
 				assert.same(2, tapB.callCount);
@@ -326,13 +326,13 @@
 				assert.same(0, tap.handle.callCount);
 
 				bus.tap(channel, tap);
-				bus.send(channel, "it feels like we're being watched");
+				bus.send(channel, 'it feels like we\'re being watched');
 				assert.same(1, tap.handle.callCount);
-				bus.send(channel, "it feels like we're being watched");
+				bus.send(channel, 'it feels like we\'re being watched');
 				assert.same(2, tap.handle.callCount);
 
 				bus.untap(channel, tap);
-				bus.send(channel, "it feels like we're being watched");
+				bus.send(channel, 'it feels like we\'re being watched');
 				assert.same(2, tap.handle.callCount);
 			},
 			'should squelch exceptions from wiretaps': function () {
@@ -345,13 +345,13 @@
 					})
 				};
 				sub = this.spy(function (message) {
-					assert.equals("it feels like we're being watched", message);
+					assert.equals('it feels like we\'re being watched', message);
 				});
 
 				channel.tap(tap);
 				bus.subscribe(channel, bus.outboundAdapter(sub));
 
-				bus.send(channel, "it feels like we're being watched");
+				bus.send(channel, 'it feels like we\'re being watched');
 
 				assert.same(1, tap.handle.callCount);
 				assert.same(1, sub.callCount);
@@ -445,15 +445,15 @@
 				bus.channel('target').subscribe(bus.transform(function (payload) {
 					return 'Knock, knock? ' + payload;
 				}));
-				bus.inboundGateway('target')("Who's there?").then(function (response) {
-					assert.same("Knock, knock? Who's there?", response);
+				bus.inboundGateway('target')('Who\'s there?').then(function (response) {
+					assert.same('Knock, knock? Who\'s there?', response);
 				});
 			},
 			'should reject the gateway promise when an error is encountered': function () {
-				bus.channel('target').subscribe(bus.transform(function (payload) {
+				bus.channel('target').subscribe(bus.transform(function (/* payload */) {
 					throw new Error();
 				}));
-				bus.inboundGateway('target')("Who's there?").then(undef, function (response) {
+				bus.inboundGateway('target')('Who\'s there?').then(undef, function (/* response */) {
 					assert(true);
 				});
 			},

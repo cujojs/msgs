@@ -21,9 +21,9 @@
  */
 
 (function (buster, define) {
-	"use strict";
+	'use strict';
 
-	var assert, refute, fail, undef;
+	var assert, refute, fail;
 
 	assert = buster.assert;
 	refute = buster.refute;
@@ -58,7 +58,7 @@
 
 				bus.channel('in');
 				bus.splitter(function (message) {
-					return message.payload.split(/.{0}/);
+					return message.payload.split(/\w{0}/);
 				}, { output: 'letters', input: 'in' });
 				bus.channel('letters');
 				bus.transform(function (message) {

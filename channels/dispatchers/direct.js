@@ -21,16 +21,14 @@
  */
 
 (function (define) {
-	"use strict";
-
-	var undef;
+	'use strict';
 
 	/**
 	 * Dedicated dispatcher. A single, fixed handler for all messages.
 	 *
 	 * @author Scott Andrews
 	 */
-	define(function (require) {
+	define(function (/* require */) {
 
 		/**
 		 * Dispatch messages to a specific handler

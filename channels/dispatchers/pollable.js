@@ -21,16 +21,14 @@
  */
 
 (function (define) {
-	"use strict";
-
-	var undef;
+	'use strict';
 
 	/**
 	 * Pollable dispatcher
 	 *
 	 * @author Scott Andrews
 	 */
-	define(function (require) {
+	define(function (/* require */) {
 
 		/**
 		 * Store messages to be consumed later
@@ -60,7 +58,7 @@
 			 * @param {Function} handlerResolver handler resolver
 			 * @returns {boolean} true if enqueueing is successful
 			 */
-			dispatcher.dispatch = function dispatch(message, handlerResolver) {
+			dispatcher.dispatch = function dispatch(message /*, handlerResolver */) {
 				try {
 					return !!queue.push(message);
 				}
