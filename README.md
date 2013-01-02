@@ -164,7 +164,7 @@ Copyright
 
 Integration is made available under the MIT license.  See LICENSE.txt for details.
 
-Copyright (c) 2012 VMware, Inc. All Rights Reserved.
+Copyright (c) 2012-2013 VMware, Inc. All Rights Reserved.
 
 VMware, Inc.
 3401 Hillview Avenue
