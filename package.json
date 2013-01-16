@@ -35,12 +35,18 @@
 	"devDependencies": {
 		"curl": "https://github.com/cujojs/curl/tarball/0.7.2",
 		"poly": "https://github.com/cujojs/poly/tarball/0.5.1",
+		"rest": "~0.8",
+		"when": "~1",
 		"buster": "",
-		"jshint": ""
+		"buster-static": "https://github.com/scothis/buster-static/tarball/html5",
+		"jshint": "",
+		"sauce-connect-launcher": "",
+		"wd": ""
 	},
 	"main": "./integration",
 	"scripts": {
 		"test": "jshint . && buster test -e node --color none --reporter specification",
+		"ci": "npm test && node test/sauce-driver.js",
 		"start": "buster static -e browser"
 	}
 }
