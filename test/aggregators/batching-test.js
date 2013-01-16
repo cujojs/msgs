@@ -89,9 +89,7 @@
 				bus.send('in', 'msg');
 				assert.same(1, spy.callCount);
 
-				setTimeout(function () {
-					assert.same(1, spy.callCount);
-				}, 1);
+				assert.same(1, spy.callCount);
 
 				setTimeout(function () {
 					assert.same(2, spy.callCount);
@@ -118,11 +116,8 @@
 				bus.send('in', 'msg');
 				bus.send('in', 'msg');
 				bus.send('in', 'msg');
-				assert.same(0, spy.callCount);
 
-				setTimeout(function () {
-					assert.same(0, spy.callCount);
-				}, 0);
+				assert.same(0, spy.callCount);
 
 				setTimeout(function () {
 					assert.same(1, spy.callCount);
