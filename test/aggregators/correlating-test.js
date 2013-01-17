@@ -58,7 +58,7 @@
 
 				bus.channel('in');
 				bus.splitter(function (message) {
-					return message.payload.split(/\w{0}/);
+					return message.payload.split('');
 				}, { output: 'letters', input: 'in' });
 				bus.channel('letters');
 				bus.transform(function (message) {
