@@ -177,6 +177,8 @@ Change Log
 ----------
 
 .next
+- bug fix, filters now work inside a chain
+- easily `forward` messages from one channel to another
 - Bower installable, with dependencies
 - mutli-browser testing with Sauce Labs
 

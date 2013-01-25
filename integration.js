@@ -539,7 +539,10 @@
 				return this._handler(name, function (message) {
 					handlers.map(this.resolveHandler, this).forEach(function (handler) {
 						if (!message) { return; }
-						handler.handle(message, {
+						var m = message;
+						// unset 'message' forcing it to be handled in order to continue in the chain
+						message = undef;
+						handler.handle(m, {
 							send: function send(m) {
 								message = m;
 								return true;

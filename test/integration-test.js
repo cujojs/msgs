@@ -441,6 +441,26 @@
 
 				bus.send('pre', 'Bigglesworth');
 			},
+			'should filter messages in a chain': function () {
+				var spy = this.spy(function (message) {
+					assert.same('hello', message);
+				});
+
+				bus.channel('start');
+				bus.channel('end');
+				bus.subscribe('end', bus.outboundAdapter(spy));
+
+				bus.chain([
+					bus.filter(function (message) {
+						return (/^[a-z]+$/).test(message);
+					})
+				], { input: 'start', output: 'end' });
+
+				bus.send('start', 'HELLO');
+				bus.send('start', 'hello');
+
+				assert.same(1, spy.callCount);
+			},
 			'should resolve the gateway promise when there is no more work to do': function () {
 				bus.channel('target').subscribe(bus.transform(function (payload) {
 					return 'Knock, knock? ' + payload;
