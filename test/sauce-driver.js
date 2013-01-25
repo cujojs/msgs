@@ -164,7 +164,7 @@
 	}
 
 	// must use a port that sauce connect will tunnel
-	buster = launchBuster(8080);
+	buster = launchBuster('8080');
 
 	console.log('Opening tunnel to Sauce Labs');
 	sauceConnect({ username: username, accessKey: accessKey, 'no_progress': true }, function (err, tunnel) {
