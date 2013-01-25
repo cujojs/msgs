@@ -618,6 +618,20 @@
 				bus.directChannel('err', bus.outboundAdapter(spy));
 
 				bus.send('in', 'Hello Service');
+			},
+			'should forward messages from one channel to another': function () {
+				var spy = this.spy(function (message) {
+					assert.same('hello', message);
+				});
+
+				bus.channel('a');
+				bus.channel('b');
+
+				bus.forward('a', 'b');
+				bus.subscribe('b', bus.outboundAdapter(spy));
+
+				bus.send('a', 'hello');
+				assert.same(1, spy.callCount);
 			}
 		});
 

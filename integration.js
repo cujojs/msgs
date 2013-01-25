@@ -496,7 +496,7 @@
 			},
 
 			/**
-			 * Forward a message to a channel
+			 * Handler that sends messages directly to the target channel
 			 *
 			 * @param {string} [name] the name to register the forward as
 			 * @param {string|Channel} target the channel to forward to
@@ -507,9 +507,17 @@
 					target = name;
 					name = '';
 				}
-				return this._handler(name, function (message) {
-					return message;
-				}, target);
+				return this._handler(name, this.utils.noop, target);
+			},
+
+			/**
+			 * Forwards messages from one channel directly to another
+			 *
+			 * @param {string|Channel} from source channel
+			 * @param {string|Channel} to recipient channel
+			 */
+			forward: function forward(from, to) {
+				return this._handler(undef, this.utils.noop, to, from);
 			},
 
 			/**
