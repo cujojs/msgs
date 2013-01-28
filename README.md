@@ -176,6 +176,9 @@ Palo Alto, CA 94304
 Change Log
 ----------
 
+.next
+- nothing yet
+
 0.3.1
 - bug fix, filters now work inside a chain
 - easily `forward` messages from one channel to another
