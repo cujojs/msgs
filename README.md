@@ -176,7 +176,7 @@ Palo Alto, CA 94304
 Change Log
 ----------
 
-.next
+0.3.1
 - bug fix, filters now work inside a chain
 - easily `forward` messages from one channel to another
 - Bower installable, with dependencies
