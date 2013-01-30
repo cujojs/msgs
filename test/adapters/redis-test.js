@@ -82,24 +82,6 @@
 
 				assert.calledWith(client.publish, 'topic', msg);
 			},
-			'should write messages to the client until closed': function () {
-				var client, msg;
-
-				client = new StubClient();
-				client.publish = this.spy();
-				bus.channel('messages');
-				bus.outboundRedisAdapter(client, 'topic', { input: 'messages' });
-
-				msg = ['a', 'b', 'c'];
-				bus.send('messages', msg[0]);
-				bus.send('messages', msg[1]);
-				client.end();
-				bus.send('messages', msg[2]);
-
-				assert.equals(['topic', msg[0]], client.publish.getCall(0).args);
-				assert.equals(['topic', msg[1]], client.publish.getCall(1).args);
-				refute(client.publish.getCall(2));
-			},
 			'should bridge sending and receiving messages': function () {
 				var client, msg;
 

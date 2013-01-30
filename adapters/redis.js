@@ -72,10 +72,6 @@
 				client.publish(topic, payload);
 			}, opts);
 
-			client.on('end', function () {
-				this.unsubscribe(opts.input, handler);
-			}.bind(this));
-
 			if (opts.error) {
 				client.on('error', this.inboundAdapter(opts.error));
 			}

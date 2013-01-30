@@ -177,7 +177,7 @@ Change Log
 ----------
 
 .next
-- nothing yet
+- don't unsubcribe from input channel on redis connection end, the client will buffer commands and auto-reconnect
 
 0.3.1
 - bug fix, filters now work inside a chain
