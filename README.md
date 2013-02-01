@@ -72,12 +72,12 @@ bus = require('integration').bus();
 redis = require('redis');
 webSocketServer = ...;
 
-integration.pubsubChannel('clientMessages');
-integration.pubsubChannel('serverMessages');
+bus.pubsubChannel('fromClient');
+bus.pubsubChannel('toClient');
 webSocketServer.on('connection', function (connection) {
-  integration.nodeStreamGateway(connection, { output: 'clientMessages', input: 'serverMessages' });
+  bus.nodeStreamGateway(connection, { output: 'fromClient', input: 'toClient' });
 });
-integration.redisGateway(redis.createClient, 'redisPubSubTopic', { output: 'serverMessages', input: 'clientMessages' });
+bus.redisGateway(redis.createClient, 'redisTopic', { output: 'toClient', input: 'fromClient' });
 ```
 
 We took the previous example, altering the nodeStreamGateway to use different channels for sending and receiving messages. The redisGateway bridges these channels while broadcasting messages to every other instance connected to Redis.
