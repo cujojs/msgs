@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012 VMware, Inc. All Rights Reserved.
+ * Copyright (c) 2012-2013 VMware, Inc. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to
@@ -33,8 +33,7 @@
 
 		var integration, bus;
 
-		integration = require('integration');
-		require('integration/aggregators/correlating');
+		integration = require('integration/aggregators/correlating');
 
 		buster.testCase('integration/aggregators/correlating', {
 			setUp: function () {
@@ -47,10 +46,10 @@
 			'should aggregate split messages': function () {
 				var upperCaseVowels, out;
 
-				upperCaseVowels = this.spy(function (char) {
-					return (/^[aeiou]$/).test(char) ?
-						char.toUpperCase() :
-						char;
+				upperCaseVowels = this.spy(function (character) {
+					return (/^[aeiou]$/).test(character) ?
+						character.toUpperCase() :
+						character;
 				});
 				out = this.spy(function (message) {
 					assert.same('AbcdEfghIjklmnOpqrstUvwxyz', message);
