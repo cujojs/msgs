@@ -93,7 +93,7 @@ Our goal is to work in every major JavaScript environment; Node.js and major bro
 If your preferred environment is not supported, please let us know. Some features may not be available in all environments.
 
 Tested environments:
-- Node.js (0.8)
+- Node.js (0.6, 0.8)
 - Chrome (stable)
 - Firefox (stable, ESR, should work in earlier versions)
 - IE (6-10)
