@@ -652,6 +652,9 @@
 
 				bus.send('a', 'hello');
 				assert.same(1, spy.callCount);
+			},
+			'should have default channel type': function () {
+				assert.same('default', bus.channel().type);
 			}
 		});
 

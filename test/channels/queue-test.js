@@ -55,6 +55,9 @@
 				bus.send(line, 'jeremy');
 				assert.same('jeremy', bus.receive(line));
 				assert.same(undef, bus.receive(line));
+			},
+			'should have queue type': function () {
+				assert.same('queue', bus.queueChannel().type);
 			}
 		});
 

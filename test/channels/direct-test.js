@@ -51,6 +51,9 @@
 				bus.send('in', 'hello');
 				assert.same(1, spy.callCount);
 				assert.same('hello', spy.getCall(0).args[0]);
+			},
+			'should have direct type': function () {
+				assert.same('direct', bus.directChannel().type);
 			}
 		});
 

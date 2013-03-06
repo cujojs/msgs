@@ -43,7 +43,7 @@
 		 * @returns {Channle} the channel
 		 */
 		integration.prototype.directChannel = integration.utils.optionalName(function directChannel(name, handler) {
-			return this._channel(name, directDispatcher(handler));
+			return this._channel(name, directDispatcher(handler), 'direct');
 		});
 
 		return integration;

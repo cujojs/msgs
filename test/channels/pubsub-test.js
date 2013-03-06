@@ -61,6 +61,9 @@
 
 				assert.same(2, aSpy.callCount);
 				assert.same(2, bSpy.callCount);
+			},
+			'should have pubsub type': function () {
+				assert.same('pubsub', bus.pubsubChannel().type);
 			}
 		});
 

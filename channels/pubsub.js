@@ -43,7 +43,7 @@
 		 * @returns the channel
 		 */
 		integration.prototype.pubsubChannel = integration.utils.optionalName(function pubsubChannel(name) {
-			return this._channel(name, broadcastDispatcher());
+			return this._channel(name, broadcastDispatcher(), 'pubsub');
 		});
 
 		return integration;

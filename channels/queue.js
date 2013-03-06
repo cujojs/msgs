@@ -62,7 +62,7 @@
 		 *   not be durable. The default queue is a basic Array.
 		 */
 		integration.prototype.queueChannel = integration.utils.optionalName(function queueChannel(name, queueStrategy) {
-			return this._channel(name, pollableDispatcher(queueStrategy));
+			return this._channel(name, pollableDispatcher(queueStrategy), 'queue');
 		});
 
 		return integration;

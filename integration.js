@@ -321,9 +321,10 @@
 			 * @param {string} [name] the name to register this channel under
 			 * @param {Dispatcher} dispatcher dispatching strategy for this
 			 *   channel
+			 * @param {string} [type] type of channel, mostly used for tests
 			 * @returns {Channel} a new channel
 			 */
-			_channel: function _channel(name, dispatcher) {
+			_channel: function _channel(name, dispatcher, type) {
 				var taps, channel;
 
 				channel = {
@@ -360,7 +361,8 @@
 							return;
 						}
 						taps.unsubscribe(handler);
-					}
+					},
+					type: type
 				};
 
 				Object.keys(dispatcher.channelMixins || {}).forEach(function (prop) {
@@ -439,7 +441,7 @@
 			 * @returns the channel
 			 */
 			channel: optionalName(function channel(name, loadBalancer) {
-				return this._channel(name, unicastDispatcher(loadBalancer));
+				return this._channel(name, unicastDispatcher(loadBalancer), 'default');
 			}),
 
 			/**
