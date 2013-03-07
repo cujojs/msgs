@@ -477,6 +477,20 @@
 					assert(true);
 				});
 			},
+			'should apply a sequence number to gateway messages': function () {
+				var handler, gateway;
+				handler = {
+					handle: this.spy(function () { return true; })
+				};
+				gateway = bus.inboundGateway(bus.directChannel(handler));
+
+				gateway('hello');
+				gateway('world');
+
+				assert.same(2, handler.handle.callCount);
+				assert.same(0, handler.handle.getCall(0).args[0].headers.sequenceNumber);
+				assert.same(1, handler.handle.getCall(1).args[0].headers.sequenceNumber);
+			},
 			'should split a message into multiple messages': function () {
 				var spy = this.spy(function (message) {
 					assert.same('msg', message);

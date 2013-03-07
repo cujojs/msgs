@@ -766,13 +766,15 @@
 			 *   outcome of the message
 			 */
 			inboundGateway: function inboundGateway(output) {
+				var counter = this.utils.counter();
 				return function (payload) {
 					var defer;
 
 					defer = when.defer();
 					this.send(output, payload, {
 						replyChannel: this._channel(undef, directDispatcher(this.outboundAdapter(defer.resolve))),
-						errorChannel: this._channel(undef, directDispatcher(this.outboundAdapter(defer.reject)))
+						errorChannel: this._channel(undef, directDispatcher(this.outboundAdapter(defer.reject))),
+						sequenceNumber: counter()
 					});
 
 					return defer.promise;
