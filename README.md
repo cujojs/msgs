@@ -28,7 +28,7 @@ All channels and handlers exist within the context of a message bus. The bus pro
 var bus = require('integration').bus();
 
 bus.channel('lowercase');
-bus.transform(function(message){return message.toUpperCase()}, { input: 'lowercase', output: 'uppercase' });
+bus.transform(function (message) { return message.toUpperCase(); }, { input: 'lowercase', output: 'uppercase' });
 bus.channel('uppercase');
 bus.outboundAdapter(function (str) {
   console.log(str);
