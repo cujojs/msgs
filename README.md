@@ -100,7 +100,7 @@ Tested environments:
 - Safari (5, 6, iOS 4-6, should work in earlier versions)
 - Opera (11, 12, should work in earlier versions)
 
-Specific browser test are provided by [Travis CI](https://travis-ci.org/cujos/msgs) and [Sauce Labs' Open Sauce Plan](https://saucelabs.com/opensource). You can see [specific browser test results](https://saucelabs.com/u/cujojs-msgs), although odds are they do not reference this specific release/branch/commit.
+Specific browser test are provided by [Travis CI](https://travis-ci.org/cujojs/msgs) and [Sauce Labs' Open Sauce Plan](https://saucelabs.com/opensource). You can see [specific browser test results](https://saucelabs.com/u/cujojs-msgs), although odds are they do not reference this specific release/branch/commit.
 
 
 Getting Started
