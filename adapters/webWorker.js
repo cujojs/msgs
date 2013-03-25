@@ -1,23 +1,8 @@
 /*
- * Copyright (c) 2012 VMware, Inc. All Rights Reserved.
+ * Copyright 2012 the original author or authors
+ * @license MIT, see LICENSE.txt for details
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to
- * deal in the Software without restriction, including without limitation the
- * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- * sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- * IN THE SOFTWARE.
+ * @author Scott Andrews
  */
 
 (function (define) {
@@ -34,7 +19,7 @@
 	 */
 	define(function (require) {
 
-		var integration = require('../integration');
+		var msgs = require('..');
 
 		/**
 		 * Post messages from this work to this channel
@@ -43,7 +28,7 @@
 		 *   messages from
 		 * @param {string|Channel} opts.output the channel to send messages to
 		 */
-		integration.prototype.inboundWebWorkerAdapter = function inboundWebWorkerAdapter(port, opts) {
+		msgs.prototype.inboundWebWorkerAdapter = function inboundWebWorkerAdapter(port, opts) {
 			port.addEventListener('message', this.inboundAdapter(opts.output, function (event) {
 				return event.data;
 			}));
@@ -57,13 +42,13 @@
 		 * @param {string|Channel} [opts.input] channel to send messages for
 		 * @returns {Handler} the handler for this adapter
 		 */
-		integration.prototype.outboundWebWorkerAdapter = integration.utils.optionalName(function outboundWebWorkerAdapter(name, port, opts) {
+		msgs.prototype.outboundWebWorkerAdapter = msgs.utils.optionalName(function outboundWebWorkerAdapter(name, port, opts) {
 			return this.outboundAdapter(name, port.postMessage, opts);
 		});
 
 		/**
-		 * Bridges integration channels and web workers. Any exceptions are put
-		 * on the error channel.
+		 * Bridges channels and web workers. Any exceptions are put on the error
+		 * channel.
 		 *
 		 * @param {MessagePort} port the web worker message port
 		 * @param {string|Channel} [opts.input] channel for outbound messages
@@ -71,7 +56,7 @@
 		 * @param {string|Channel} [opts.error] channel for thrown exceptions
 		 *   or worker errors
 		 */
-		integration.prototype.webWorkerGateway = function webWorkerGateway(port, opts) {
+		msgs.prototype.webWorkerGateway = function webWorkerGateway(port, opts) {
 			if (opts.output) {
 				this.inboundWebWorkerAdapter(port, opts);
 			}
@@ -83,7 +68,7 @@
 			}
 		};
 
-		return integration;
+		return msgs;
 
 	});
 

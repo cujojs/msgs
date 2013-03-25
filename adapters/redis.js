@@ -1,23 +1,8 @@
 /*
- * Copyright (c) 2012-2013 VMware, Inc. All Rights Reserved.
+ * Copyright 2012-2013 the original author or authors
+ * @license MIT, see LICENSE.txt for details
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to
- * deal in the Software without restriction, including without limitation the
- * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- * sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- * IN THE SOFTWARE.
+ * @author Scott Andrews
  */
 
 (function (define) {
@@ -33,7 +18,7 @@
 	 */
 	define(function (require) {
 
-		var integration = require('../integration');
+		var msgs = require('..');
 
 		/**
 		 * Post messages from Redis to this channel
@@ -43,7 +28,7 @@
 		 * @param {string|Channel} opts.output channel inbound Redis messages
 		 *   are sent to
 		 */
-		integration.prototype.inboundRedisAdapter = function inboundRedisAdapter(client, topic, opts) {
+		msgs.prototype.inboundRedisAdapter = function inboundRedisAdapter(client, topic, opts) {
 			client.on('message', this.inboundAdapter(opts.output, function (channel, message) {
 				// make sure it's the channel we care about
 				if (channel === topic) {
@@ -65,7 +50,7 @@
 		 *   Redis client are sent to
 		 * @returns {Handler} the handler for this adapter
 		 */
-		integration.prototype.outboundRedisAdapter = integration.utils.optionalName(function outboundRedisAdapter(name, client, topic, opts) {
+		msgs.prototype.outboundRedisAdapter = msgs.utils.optionalName(function outboundRedisAdapter(name, client, topic, opts) {
 			var handler;
 
 			handler = this.outboundAdapter(name, function (payload) {
@@ -80,8 +65,8 @@
 		});
 
 		/**
-		 * Bridges integration channels and Redis Pub/Sub. Any exceptions are
-		 * put on the error channel.
+		 * Bridges channels and Redis Pub/Sub. Any exceptions are put on the error
+		 * channel.
 		 *
 		 * A client factory must be provided instead of a concrete client as
 		 * the same client cannot be used for publishing and subscribing.
@@ -95,7 +80,7 @@
 		 *   are sent to
 		 * @param {string|Channel} [opts.error] channel for thrown exceptions
 		 */
-		integration.prototype.redisGateway = function redisGateway(clientFactory, topic, opts) {
+		msgs.prototype.redisGateway = function redisGateway(clientFactory, topic, opts) {
 			if (opts.output) {
 				this.inboundRedisAdapter(clientFactory(), topic, opts);
 			}
@@ -104,7 +89,7 @@
 			}
 		};
 
-		return integration;
+		return msgs;
 
 	});
 

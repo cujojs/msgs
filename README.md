@@ -1,22 +1,22 @@
-Integration.js
-==============
+msgs.js
+=======
 
-Enterprise Integration Patterns for JavaScript, inspired by Spring Integration.
+Message oriented programming for JavaScript.  Inspired by Spring Integration.
 
 
 Build Status
 ------------
 
 <table>
-  <tr><td>Master</td><td><a href="http://travis-ci.org/s2js/integration" target="_blank"><img src="https://secure.travis-ci.org/s2js/integration.png?branch=master" /></a></tr>
-  <tr><td>Development</td><td><a href="http://travis-ci.org/s2js/integration" target="_blank"><img src="https://secure.travis-ci.org/s2js/integration.png?branch=dev" /></a></tr>
+  <tr><td>Master</td><td><a href="http://travis-ci.org/cujojs/msgs" target="_blank"><img src="https://secure.travis-ci.org/cujojs/msgs.png?branch=master" /></a></tr>
+  <tr><td>Development</td><td><a href="http://travis-ci.org/cujojs/msgs" target="_blank"><img src="https://secure.travis-ci.org/cujojs/msgs.png?branch=dev" /></a></tr>
 </table>
 
 
 Overview
 --------
 
-Integration.js applies the vocabulary and patterns defined in the '[Enterprise Integration Patterns](http://www.eaipatterns.com/)' book to JavaScript extending messaging oriented programming into the browser and/or server side JavaScript. Messaging patterns originally developed to integrate loosely coupled disparate systems, apply just as well to loosely coupled modules within a single application process.
+msgs.js applies the vocabulary and patterns defined in the '[Enterprise Integration Patterns](http://www.eaipatterns.com/)' book to JavaScript extending messaging oriented programming into the browser and/or server side JavaScript. Messaging patterns originally developed to integrate loosely coupled disparate systems, apply just as well to loosely coupled modules within a single application process.
 
 At the most basic level, `messages` are sent to `channels` and then dispatched to `handlers`. There are a wide variety of handler types that can easily be extended to provide rich behavior. The foundation handler types include: transforms, filters, routers, splitters and aggregators. Adapters and gateways provide ways in to and out of the messaging system. Channels dispatch messages to one or many handlers using a load balancer or pub-sub respectively, or queue messages until a poller consumes them.
 
@@ -25,7 +25,7 @@ Adapters are provided to aid integrating with popular external systems, protocol
 All channels and handlers exist within the context of a message bus. The bus provides factories to create channels and handlers, in addition to a scope for referencing these components by name.
 
 ```javascript
-var bus = require('integration').bus();
+var bus = require('msgs').bus();
 
 bus.channel('lowercase');
 bus.transform(function (message) { return message.toUpperCase(); }, { input: 'lowercase', output: 'uppercase' });
@@ -44,10 +44,10 @@ While converting a string to upper case is a bit contrived, it demonstrates the 
 ```javascript
 var bus, webSocketServer;
 
-require('integration/adapters/nodeStream');
-require('integration/channels/pubsub');
+require('msgs/adapters/nodeStream');
+require('msgs/channels/pubsub');
 
-bus = require('integration').bus();
+bus = require('msgs').bus();
 webSocketServer = ...;
 
 bus.pubsubChannel('broadcast');
@@ -64,11 +64,11 @@ This works as long as there is only ever a single application instance, but what
 ```javascript
 var bus, webSocketServer, redis;
 
-require('integration/adapters/nodeStream');
-require('integration/adapters/redis');
-require('integration/channels/pubsub');
+require('msgs/adapters/nodeStream');
+require('msgs/adapters/redis');
+require('msgs/channels/pubsub');
 
-bus = require('integration').bus();
+bus = require('msgs').bus();
 redis = require('redis');
 webSocketServer = ...;
 
@@ -100,37 +100,29 @@ Tested environments:
 - Safari (5, 6, iOS 4-6, should work in earlier versions)
 - Opera (11, 12, should work in earlier versions)
 
-Specific browser test are provided by [Travis CI](https://travis-ci.org/s2js/integration) and [Sauce Labs' Open Sauce Plan](https://saucelabs.com/opensource). You can see [specific browser test results](https://saucelabs.com/u/s2js-integration), although odds are they do not reference this specific release/branch/commit.
+Specific browser test are provided by [Travis CI](https://travis-ci.org/cujos/msgs) and [Sauce Labs' Open Sauce Plan](https://saucelabs.com/opensource). You can see [specific browser test results](https://saucelabs.com/u/cujojs-msgs), although odds are they do not reference this specific release/branch/commit.
 
 
 Getting Started
 ---------------
 
-Integration.js can be installed via [npm](https://npmjs.org/), [Bower](http://twitter.github.com/bower/), or from source.
+msgs.js can be installed via [npm](https://npmjs.org/), [Bower](http://twitter.github.com/bower/), or from source.
 
 To install without source:
 
-    $ npm install integration
+    $ npm install msgs
 
 or
 
-    $ bower install integration
+    $ bower install msgs
 
 From source:
 
     $ npm install
 
-Integration.js is designed to run in a browser environment, utilizing [AMD modules](https://github.com/amdjs/amdjs-api/wiki/AMD), or within [Node.js](http://nodejs.org/).  [curl](https://github.com/cujojs/curl) is highly recommended as an AMD loader, although any loader should work.
+msgs.js is designed to run in a browser environment, utilizing [AMD modules](https://github.com/amdjs/amdjs-api/wiki/AMD), or within [Node.js](http://nodejs.org/).  [curl](https://github.com/cujojs/curl) is highly recommended as an AMD loader, although any loader should work.
 
 An ECMAScript 5 compatible environment is assumed.  Older browsers, ::cough:: IE, that do not support ES5 natively can be shimmed.  Any shim should work, although we've tested against cujo's [poly](https://github.com/cujojs/poly)
-
-
-Reporting Issues
-----------------
-
-Please report issues on [GitHub](https://github.com/s2js/integration/issues).  Include a brief description of the error, information about the runtime (including shims) and any error messages.
-
-Feature requests are also welcome.
 
 
 Running the Tests
@@ -152,6 +144,16 @@ To run the suite in a browser:
     browse to http://localhost:8282/ in the browser(s) you wish to test.  It can take a few seconds to start.
 
 
+Get in Touch
+------------
+
+You can find us on the [cujojs mailing list](https://groups.google.com/forum/#!forum/cujojs), or the #cujojs IRC channel on freenode.
+
+Please report issues on [GitHub](https://github.com/cujojs/msgs/issues).  Include a brief description of the error, information about the runtime (including shims) and any error messages.
+
+Feature requests are also welcome.
+
+
 Contributors
 ------------
 
@@ -164,19 +166,18 @@ Please see CONTRIBUTING.md for details on how to contribute to this project.
 Copyright
 ---------
 
-Integration is made available under the MIT license.  See LICENSE.txt for details.
+Copyright 2012-2013 the original author or authors
 
-Copyright (c) 2012-2013 VMware, Inc. All Rights Reserved.
+msgs.js is made available under the MIT license.  See LICENSE.txt for details.
 
-VMware, Inc.
-3401 Hillview Avenue
-Palo Alto, CA 94304
 
 
 Change Log
 ----------
 
 .next
+- renamed project to 'msgs' from 'integration'
+- migrate to 'cujojs' organization from 's2js'
 - don't unsubcribe from input channel on redis connection end, the client will buffer commands and auto-reconnect
 
 0.3.1

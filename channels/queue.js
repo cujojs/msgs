@@ -1,23 +1,8 @@
 /*
- * Copyright (c) 2012 VMware, Inc. All Rights Reserved.
+ * Copyright 2012 the original author or authors
+ * @license MIT, see LICENSE.txt for details
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to
- * deal in the Software without restriction, including without limitation the
- * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- * sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- * IN THE SOFTWARE.
+ * @author Scott Andrews
  */
 
 (function (define) {
@@ -32,9 +17,9 @@
 	 */
 	define(function (require) {
 
-		var integration, pollableDispatcher;
+		var msgs, pollableDispatcher;
 
-		integration = require('../integration');
+		msgs = require('..');
 		pollableDispatcher = require('./dispatchers/pollable');
 
 		/**
@@ -45,7 +30,7 @@
 		 * @returns {Object} the message payload or undefined if no message is
 		 *   available
 		 */
-		integration.prototype.receive = function receive(target) {
+		msgs.prototype.receive = function receive(target) {
 			var message = this.resolveChannel(target).receive();
 			// TODO should we return the message instead of the payload?
 			return message ? message.payload : undef;
@@ -61,11 +46,11 @@
 		 *   removing messages from the queue respectively. Queues may or may
 		 *   not be durable. The default queue is a basic Array.
 		 */
-		integration.prototype.queueChannel = integration.utils.optionalName(function queueChannel(name, queueStrategy) {
+		msgs.prototype.queueChannel = msgs.utils.optionalName(function queueChannel(name, queueStrategy) {
 			return this._channel(name, pollableDispatcher(queueStrategy), 'queue');
 		});
 
-		return integration;
+		return msgs;
 
 	});
 

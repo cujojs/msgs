@@ -1,23 +1,8 @@
 /*
- * Copyright (c) 2012-2013 VMware, Inc. All Rights Reserved.
+ * Copyright 2012-2013 the original author or authors
+ * @license MIT, see LICENSE.txt for details
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to
- * deal in the Software without restriction, including without limitation the
- * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
- * sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
- * IN THE SOFTWARE.
+ * @author Scott Andrews
  */
 
 (function (define) {
@@ -30,7 +15,7 @@
 	 */
 	define(function (require) {
 
-		var integration = require('../integration');
+		var msgs = require('..');
 
 		/**
 		 * Post messages from this connection to this channel
@@ -38,7 +23,7 @@
 		 * @param {Connection} connection the connection to receive data from
 		 * @param {string|Channel} opts.output the channel to send data to
 		 */
-		integration.prototype.inboundNodeStreamAdapter = function inboundNodeStreamAdapter(connection, opts) {
+		msgs.prototype.inboundNodeStreamAdapter = function inboundNodeStreamAdapter(connection, opts) {
 			connection.on('data', this.inboundAdapter(opts.output));
 		};
 
@@ -52,7 +37,7 @@
 		 *   for
 		 * @returns {Handler} the handler for this adapter
 		 */
-		integration.prototype.outboundNodeStreamAdapter = integration.utils.optionalName(function outboundNodeStreamAdapter(name, connection, opts) {
+		msgs.prototype.outboundNodeStreamAdapter = msgs.utils.optionalName(function outboundNodeStreamAdapter(name, connection, opts) {
 			var handler;
 
 			handler = this.outboundAdapter(name, connection.write.bind(connection), opts);
@@ -65,16 +50,16 @@
 		});
 
 		/**
-		 * Bridges integration channels and connections from a node server. New
-		 * connections this server makes are adapted to the input and output
-		 * channels. Any exceptions are put on the error channel.
+		 * Bridges channels and connections from a node server. New connections this
+		 * server makes are adapted to the input and output channels. Any exceptions
+		 * are put on the error channel.
 		 *
 		 * @param {Connection} connection the node stream connection
 		 * @param {string|Channel} [opts.output] channel for inbound messages
 		 * @param {string|Channel} [opts.input] channel for outbound messages
 		 * @param {string|Channel} [opts.error] channel for thrown exceptions
 		 */
-		integration.prototype.nodeStreamGateway = function nodeStreamGateway(connection, opts) {
+		msgs.prototype.nodeStreamGateway = function nodeStreamGateway(connection, opts) {
 			if (opts.output) {
 				this.inboundNodeStreamAdapter(connection, opts);
 			}
@@ -86,7 +71,7 @@
 			}
 		};
 
-		return integration;
+		return msgs;
 
 	});
 

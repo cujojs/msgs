@@ -1,7 +1,7 @@
 {
-	"name": "integration",
+	"name": "msgs",
 	"version": "0.3.1-next",
-	"main": "./integration.js",
+	"main": "./msgs.js",
 	"dependencies": {
 		"when": "~1"
 	}
