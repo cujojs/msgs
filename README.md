@@ -93,7 +93,7 @@ Our goal is to work in every major JavaScript environment; Node.js and major bro
 If your preferred environment is not supported, please let us know. Some features may not be available in all environments.
 
 Tested environments:
-- Node.js (0.6, 0.8)
+- Node.js (0.6, 0.8. 0.10)
 - Chrome (stable)
 - Firefox (stable, ESR, should work in earlier versions)
 - IE (6-10)
@@ -176,7 +176,7 @@ Change Log
 ----------
 
 .next
-- nothing yet
+- add Node 0.10 as a tested environment
 
 0.3.2
 - renamed project to 'msgs' from 'integration'
