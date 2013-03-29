@@ -175,7 +175,7 @@ msgs.js is made available under the MIT license.  See LICENSE.txt for details.
 Change Log
 ----------
 
-.next
+0.3.2
 - renamed project to 'msgs' from 'integration'
 - migrate to 'cujojs' organization from 's2js'
 - don't unsubcribe from input channel on redis connection end, the client will buffer commands and auto-reconnect

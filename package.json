@@ -1,6 +1,6 @@
 {
 	"name": "msgs",
-	"version": "0.3.1-next",
+	"version": "0.3.2",
 	"description": "Message oriented programming for JavaScript",
 	"keywords": ["msgs", "message", "channel", "integration", "eip", "enterprise integration patterns", "cujojs", "spring", "springsource"],
 	"licenses": [
