@@ -175,6 +175,9 @@ msgs.js is made available under the MIT license.  See LICENSE.txt for details.
 Change Log
 ----------
 
+.next
+- nothing yet
+
 0.3.2
 - renamed project to 'msgs' from 'integration'
 - migrate to 'cujojs' organization from 's2js'

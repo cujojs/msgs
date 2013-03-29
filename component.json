@@ -1,6 +1,6 @@
 {
 	"name": "msgs",
-	"version": "0.3.2",
+	"version": "0.3.2-next",
 	"main": "./msgs.js",
 	"dependencies": {
 		"when": "~1"
