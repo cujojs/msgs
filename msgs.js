@@ -25,7 +25,7 @@
 	 */
 	define(function (require) {
 
-		var broadcastDispatcher, directDispatcher, unicastDispatcher, when, busCounter;
+		var broadcastDispatcher, directDispatcher, unicastDispatcher, when, busCounter, channelTopicParserRE;
 
 		broadcastDispatcher = require('./channels/dispatchers/broadcast');
 		directDispatcher = require('./channels/dispatchers/direct');
@@ -33,6 +33,7 @@
 		when = require('when');
 
 		busCounter = counter();
+		channelTopicParserRE = /^([^!]*)(?:!([\w\W]*))?$/;
 
 		/**
 		 * Create a new message
@@ -42,8 +43,8 @@
 		 */
 		function Message(payload, headers) {
 			this.payload = payload;
-			this.headers = freeze(headers || {});
-			freeze(this);
+			this.headers = Object.freeze(headers || {});
+			Object.freeze(this);
 		}
 
 		Message.prototype = {
@@ -178,20 +179,35 @@
 			 * @returns the found channel, undefined when not found
 			 */
 			this.resolveChannel = function resolveChannel(name) {
-				var channel;
+				var topic, channel;
+
 				if (this.isChannel(name)) {
 					return name;
 				}
+
+				if (name.match) {
+					(function (results) {
+						name = results[1];
+						topic = results[2];
+					}(name.match(channelTopicParserRE)));
+				}
+
 				if (name in components) {
 					channel = components[name];
 					if (isRef(channel)) {
 						channel = channel.resolve();
 					}
-					return this.resolveChannel(channel);
+					channel = this.resolveChannel(channel);
 				}
-				if (parent) {
-					return parent.resolveChannel(name);
+				else if (parent) {
+					channel = parent.resolveChannel(name);
 				}
+
+				if (topic) {
+					channel = topicizeChannel(topic, channel);
+				}
+
+				return channel;
 			};
 
 			/**
@@ -796,7 +812,7 @@
 			/**
 			 * Channel that does nothing
 			 */
-			noopChannel: freeze({
+			noopChannel: Object.freeze({
 				send: function () {
 					return true;
 				}
@@ -805,7 +821,7 @@
 			/**
 			 * Handler that does nothing
 			 */
-			noopHandler: freeze({
+			noopHandler: Object.freeze({
 				handle: function () {}
 			}),
 
@@ -816,7 +832,8 @@
 			utils: {
 				counter: counter,
 				noop: function noop() { return arguments[0]; },
-				optionalName: optionalName
+				optionalName: optionalName,
+				topicizeChannel: topicizeChannel
 			}
 
 		};
@@ -841,16 +858,6 @@
 	}
 
 	/**
-	 * Prevent modification to an object if supported on the platform
-	 *
-	 * @param obj the object to freeze
-	 * @returns the frozen object
-	 */
-	function freeze(obj) {
-		return Object.freeze ? Object.freeze(obj) : obj;
-	}
-
-	/**
 	 * Detect if the first parameter is a name. If the param is omitted,
 	 * arguments are normalized and passed to the wrapped function.
 	 * Behavior is undesirable if the second argument can be a string.
@@ -867,6 +874,45 @@
 			}
 			return func.apply(this, args);
 		};
+	}
+
+	/**
+	 * Transform a channel to enable topical subscriptions. Wraps the channel's
+	 * 'send', 'subscribe' and 'unsubscribe' agumenting the method args with the
+	 * topic info.
+	 *
+	 * The original channel is uneffected.
+	 *
+	 * @param {string} topic the topic
+	 * @param {Channel} the channel to topicize
+	 * @returns {Channel} the channel topicized
+	 */
+	function topicizeChannel(topic, channel) {
+		var send, subscribe, unsubscribe;
+
+		send = channel.send;
+		subscribe = channel.subscribe;
+		unsubscribe = channel.unsubscribe;
+
+		channel = Object.create(channel);
+
+		if (send) {
+			channel.send = function (message) {
+				return send.call(this, message.mixin({ topic: topic }));
+			};
+		}
+		if (subscribe) {
+			channel.subscribe = function (handler) {
+				return subscribe.call(this, topic, handler);
+			};
+		}
+		if (unsubscribe) {
+			channel.unsubscribe = function (handler) {
+				return unsubscribe.call(this, topic, handler);
+			};
+		}
+
+		return channel;
 	}
 
 }(

@@ -38,14 +38,20 @@
 			/**
 			 * Removes a handler from receiving messages sent to this channel
 			 *
-			 * @param {Handler|string} handler the handler to stop receiving
-			 * messages
+			 * @param {Handler|string} handler the handler to stop receiving messages
 			 */
 			this.unsubscribe = function unsubscribe(handler) {
 				var index = handlers.indexOf(handler);
 				if (index >= 0) {
 					handlers = handlers.slice(0, index).concat(handlers.slice(index + 1));
 				}
+			};
+
+			/**
+			 * @returns {boolean} true if a handler is subscribed to this dispatcher
+			 */
+			this.subscribed = function subscribed() {
+				return handlers.length !== 0;
 			};
 
 			/**

@@ -176,6 +176,9 @@ Change Log
 ----------
 
 .next
+- topic based channels using the form 'channelName!topic' anywhere a channel is resolved by name
+- exchangeChannel providing basic subscription within a channel for topics
+- topicExchangeChannel providing AMQP style topic bindings
 - add Node 0.10 as a tested environment
 
 0.3.2

@@ -657,6 +657,59 @@
 			},
 			'should have default channel type': function () {
 				assert.same('default', bus.channel().type);
+			},
+			'with a topic it': {
+				'should resolve channel': function () {
+					var channel, resolvedChannel, topicChannel;
+
+					channel = bus.channel('world');
+					resolvedChannel = bus.resolveChannel('world');
+					topicChannel = bus.resolveChannel('world!greeting');
+
+					assert.same(channel, resolvedChannel);
+					refute.same(channel, topicChannel);
+					assert.same(channel, Object.getPrototypeOf(topicChannel));
+
+					refute.same(channel.send, topicChannel.send);
+					refute.same(channel.subscribe, topicChannel.subscribe);
+					refute.same(channel.unsubscribe, topicChannel.unsubscribe);
+				},
+				'should apply the topic to the message headers': function () {
+					var spy = this.spy(function (message, headers) {
+						assert.same('hello', message);
+						assert.same('greeting', headers.topic);
+					});
+
+					bus.channel('world');
+					bus.transform(spy, { input: 'world' });
+
+					bus.send('world!greeting', 'hello');
+					assert.same(1, spy.callCount);
+				},
+				'should recieve the topic for handler subscriptions': function () {
+					var channel, handler;
+
+					channel = bus.channel('world');
+					channel.subscribe = this.spy(channel.subscribe);
+
+					handler = bus.transform(bus.utils.noop, { input: 'world!greeting' });
+
+					assert.same('greeting', channel.subscribe.firstCall.args[0]);
+					assert.same(handler, channel.subscribe.firstCall.args[1]);
+				},
+				'should recieve the topic for handler unsubscriptions': function () {
+					var channel, topic, handler;
+
+					channel = bus.channel('world');
+					channel.unsubscribe = this.spy(channel.subscribe);
+
+					handler = bus.transform(bus.utils.noop, { input: 'world!greeting' });
+					topic = bus.resolveChannel('world!greeting');
+					topic.unsubscribe(handler);
+
+					assert.same('greeting', channel.unsubscribe.firstCall.args[0]);
+					assert.same(handler, channel.unsubscribe.firstCall.args[1]);
+				}
 			}
 		});
 
