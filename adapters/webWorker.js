@@ -14,8 +14,6 @@
 	 * Implemented to the W3C Worker, MessagePort APIs
 	 * http://www.w3.org/TR/workers/#dedicated-workers-and-the-worker-interface
 	 * http://www.w3.org/TR/webmessaging/#message-ports
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

@@ -13,8 +13,6 @@
 	 *
 	 * Implemented assuming a node-redis client.
 	 * https://github.com/mranney/node_redis
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

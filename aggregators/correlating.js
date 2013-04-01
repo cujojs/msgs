@@ -10,8 +10,6 @@
 
 	/**
 	 * Aggregate messages by correlationId and sequenceNumber
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

@@ -12,8 +12,6 @@
 
 	/**
 	 * Queue channel. Messages are stored until retrieved.
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

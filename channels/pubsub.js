@@ -10,8 +10,6 @@
 
 	/**
 	 * Pub/sub channel. Messages are broadcast to all subscribers.
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

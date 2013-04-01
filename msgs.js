@@ -22,8 +22,6 @@
 	 *
 	 * Advanced functionality may be added to all buses within the system by
 	 * adding properties to this objects 'prototype'.
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

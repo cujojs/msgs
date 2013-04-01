@@ -10,8 +10,6 @@
 
 	/**
 	 * Broadcast dispatcher. All subscribers receive each message.
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

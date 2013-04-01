@@ -10,8 +10,6 @@
 
 	/**
 	 * Adapters for Node.js style streams.
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

@@ -10,8 +10,6 @@
 
 	/**
 	 * Dedicated dispatcher. A single, fixed handler for all messages.
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (/* require */) {
 

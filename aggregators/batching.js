@@ -12,8 +12,6 @@
 
 	/**
 	 * Aggregate messages into batches as they are received.
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

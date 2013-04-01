@@ -11,8 +11,6 @@
 	/**
 	 * Unicast dispatcher. A single subscriber receives each message. Includes
 	 * common load balancer strategies.
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

@@ -13,8 +13,6 @@
 	 *
 	 * Implemented to the W3C WebSocket API
 	 * http://www.w3.org/TR/websockets/#the-websocket-interface
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

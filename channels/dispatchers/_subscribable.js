@@ -12,8 +12,6 @@
 
 	/**
 	 * Common base for subscribable dispatchers
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (/* require */) {
 

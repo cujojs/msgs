@@ -10,8 +10,6 @@
 
 	/**
 	 * Ad hoc channel. A channel backed by a dedicated handler.
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (require) {
 

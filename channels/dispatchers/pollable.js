@@ -10,8 +10,6 @@
 
 	/**
 	 * Pollable dispatcher
-	 *
-	 * @author Scott Andrews
 	 */
 	define(function (/* require */) {
 
