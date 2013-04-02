@@ -30,7 +30,7 @@
 		}
 	],
 	"dependencies": {
-		"when": "~1"
+		"when": "~2.0"
 	},
 	"devDependencies": {
 		"test-support": "~0.2",
