@@ -61,22 +61,18 @@
 			 * @return {Message} a new message with the same payload and new
 			 *   headers
 			 */
-			mixin: function mixin(payload, declaredHeaders) {
+			mixin: function (payload, declaredHeaders) {
 				var headers;
 
 				if (arguments.length < 2) {
 					declaredHeaders = payload;
 					payload = this.payload;
 				}
-				declaredHeaders = declaredHeaders || {};
-				headers = {};
 
-				Object.keys(this.headers).forEach(function (header) {
-					headers[header] = this.headers[header];
-				}, this);
-				Object.keys(declaredHeaders).forEach(function (header) {
-					headers[header] = declaredHeaders[header];
-				}, this);
+				headers = mixin(this.headers);
+				if (declaredHeaders) {
+					headers = mixin(headers, declaredHeaders);
+				}
 
 				return new Message(payload, headers);
 			}
@@ -831,6 +827,7 @@
 			 */
 			utils: {
 				counter: counter,
+				mixin: mixin,
 				noop: function noop() { return arguments[0]; },
 				optionalName: optionalName,
 				topicizeChannel: topicizeChannel
@@ -855,6 +852,26 @@
 		return function increment() {
 			return count++;
 		};
+	}
+
+	/**
+	 * Mixin util. Copies properties from the props object to the target object.
+	 * Will create a shallow clone if only one args is provided.
+	 *
+	 * @param {Object} target the object to copy properties to
+	 * @param {Object} [props] the source of properties to copy
+	 */
+	function mixin(target, props) {
+		if (arguments.length < 2) {
+			props = target;
+			target = {};
+		}
+		for (var prop in props) {
+			if (props.hasOwnProperty(prop)) {
+				target[prop] = props[prop];
+			}
+		}
+		return target;
 	}
 
 	/**

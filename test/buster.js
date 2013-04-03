@@ -31,9 +31,11 @@ config['msgs:browser'] = {
 		'adapters/**/*.js',
 		'aggregators/**/*.js',
 		'channels/**/*.js',
+		'test/**/*.js',
 		'node_modules/curl/**/*.js',
 		'node_modules/poly/**/*.js',
-		'node_modules/when/**/*.js'
+		'node_modules/when/**/*.js',
+		'node_modules/wire/**/*.js'
 	],
 	libs: [
 		'test/curl-config.js',
