@@ -27,11 +27,11 @@
 			"email": "markfisher@vmware.com"
 		}
 	],
-	"dependencies": {
+	"optionalDependencies": {
 		"when": "~2.0"
 	},
 	"devDependencies": {
-		"wire": "https://github.com/cujojs/wire/tarball/dev",
+		"wire": "~0.10",
 		"test-support": "~0.2",
 		"curl": "https://github.com/cujojs/curl/tarball/0.7.3",
 		"poly": "https://github.com/cujojs/poly/tarball/0.5.1"

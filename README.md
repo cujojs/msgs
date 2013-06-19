@@ -176,6 +176,7 @@ Change Log
 ----------
 
 .next
+- moved .inboundGateway() and .outboundGateway() from msgs into msgs/gateways, when.js is now an optional dependency
 - topic based channels using the form 'channelName!topic' anywhere a channel is resolved by name
 - exchangeChannel providing basic subscription within a channel for topics
 - topicExchangeChannel providing AMQP style topic bindings

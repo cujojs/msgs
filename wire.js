@@ -17,7 +17,7 @@
 
 		var msgs, when, wireArray, wireFunctional;
 
-		msgs = require('./msgs');
+		msgs = require('./gateways');
 		when = require('when');
 		wireArray = require('wire/lib/array');
 		wireFunctional = require('wire/lib/functional');
