@@ -9,12 +9,10 @@
 			"url": "http://opensource.org/licenses/MIT"
 		}
 	],
-	"repositories": [
-		{
-			"type": "git",
-			"url": "https://github.com/cujojs/msgs"
-		}
-	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/cujojs/msgs.git"
+	},
 	"bugs": "https://github.com/cujojs/msgs/issues",
 	"maintainers": [
 		{
