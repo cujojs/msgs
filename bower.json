@@ -4,5 +4,9 @@
 	"main": "./msgs.js",
 	"dependencies": {
 		"when": "~1"
-	}
+	},
+	"ignore": [
+		".*",
+		"test"
+	]
 }

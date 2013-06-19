@@ -177,6 +177,7 @@ Change Log
 
 .next
 - add Node 0.10 as a tested environment
+- component.json -> package.json for bower
 
 0.3.2
 - renamed project to 'msgs' from 'integration'
