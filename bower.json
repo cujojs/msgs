@@ -4,5 +4,9 @@
 	"main": "./msgs.js",
 	"dependencies": {
 		"when": "~2.0"
-	}
+	},
+	"ignore": [
+		".*",
+		"test"
+	]
 }

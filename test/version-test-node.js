@@ -15,21 +15,21 @@
 
 	define('msgs/version-test', function (require) {
 
-		var componentJson, packageJson;
+		var bowerJson, packageJson;
 
-		componentJson = require('msgs/component.json');
+		bowerJson = require('msgs/bower.json');
 		packageJson = require('msgs/package.json');
 
 		buster.testCase('msgs/version', {
-			'should have the same name for package.json and component.json': function () {
-				assert.same(componentJson.name, packageJson.name);
+			'should have the same name for package.json and bower.json': function () {
+				assert.same(bowerJson.name, packageJson.name);
 			},
-			'should have the same version for package.json and component.json': function () {
-				assert.same(componentJson.version, packageJson.version);
+			'should have the same version for package.json and bower.json': function () {
+				assert.same(bowerJson.version, packageJson.version);
 			},
-			'should have the same depenency versions for package.json and component.json': function () {
+			'should have the same depenency versions for package.json and bower.json': function () {
 				// this may not always hold true, but it currently does
-				assert.equals(componentJson.dependencies, packageJson.optionalDependencies);
+				assert.equals(bowerJson.dependencies, packageJson.optionalDependencies);
 			}
 		});
 

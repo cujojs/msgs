@@ -181,6 +181,7 @@ Change Log
 - exchangeChannel providing basic subscription within a channel for topics
 - topicExchangeChannel providing AMQP style topic bindings
 - add Node 0.10 as a tested environment
+- component.json -> package.json for bower
 
 0.3.2
 - renamed project to 'msgs' from 'integration'
