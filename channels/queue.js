@@ -8,8 +8,6 @@
 (function (define) {
 	'use strict';
 
-	var undef;
-
 	/**
 	 * Queue channel. Messages are stored until retrieved.
 	 */
@@ -29,9 +27,7 @@
 		 *   available
 		 */
 		msgs.prototype.receive = function receive(target) {
-			var message = this.resolveChannel(target).receive();
-			// TODO should we return the message instead of the payload?
-			return message ? message.payload : undef;
+			return this.resolveChannel(target).receive();
 		};
 
 		/**

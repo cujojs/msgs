@@ -8,7 +8,7 @@
 (function (buster, define) {
 	'use strict';
 
-	var assert, refute, fail, undef;
+	var assert, refute, fail;
 
 	assert = buster.assert;
 	refute = buster.refute;
@@ -31,15 +31,17 @@
 			'should queue message and return them in order': function () {
 				var line = bus.queueChannel();
 
+				refute(bus.receive(line));
 				bus.send(line, 'scott');
 				bus.send(line, 'mark');
-				assert.same('scott', bus.receive(line));
-				assert.same('mark', bus.receive(line));
-				assert.same(undef, bus.receive(line));
+				assert.same('scott', bus.receive(line).payload);
+				assert.same('mark', bus.receive(line).payload);
 
+				refute(bus.receive(line));
 				bus.send(line, 'jeremy');
-				assert.same('jeremy', bus.receive(line));
-				assert.same(undef, bus.receive(line));
+				assert.same('jeremy', bus.receive(line).payload);
+
+				refute(bus.receive(line));
 			},
 			'should have queue type': function () {
 				assert.same('queue', bus.queueChannel().type);
