@@ -180,6 +180,7 @@ Change Log
 - exchangeChannel providing basic subscription within a channel for topics
 - topicExchangeChannel providing AMQP style topic bindings
 - moved .inboundGateway() and .outboundGateway() from msgs into msgs/gateways, when.js is now an optional dependency
+- bus.on('channel', listener) - syntatic sugar over outboundAdapter
 - receive'ing from a queue returns the full message, not just the payload
 - add Node 0.10 as a tested environment
 - component.json -> package.json for bower

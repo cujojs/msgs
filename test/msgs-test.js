@@ -110,6 +110,13 @@
 
 				bus.send(publisher, 'hello world');
 			},
+			'should subscribe a listener on a channel': function () {
+				bus.channel('greeting');
+				bus.on('greeting', function (greeting) {
+					assert.same('hello', greeting);
+				});
+				bus.send('greeting', 'hello');
+			},
 			'should adapt normal function invocations to messages with inbound adapters': function () {
 				var publisher, adapter, consumer;
 
