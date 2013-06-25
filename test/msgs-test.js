@@ -44,6 +44,11 @@
 				assert.same('payload', message.payload);
 				assert(message.headers.id);
 			},
+			'should create a message with an explicit id header': function () {
+				var message = bus._message('payload', { id: 4 });
+				assert.same('payload', message.payload);
+				assert.same(4, message.headers.id);
+			},
 			'should not modify an exsisting message payload, headers must be different': function () {
 				var message = bus._message('payload');
 				assert.same(message.payload, bus._message(message).payload);

@@ -135,7 +135,9 @@
 					headers[header] = declaredHeaders[header];
 				}, this);
 
-				headers.id = busId + '-' + messageCounter();
+				if (!('id' in declaredHeaders)) {
+					headers.id = busId + '-' + messageCounter();
+				}
 
 				return this.isMessage(payload) ?
 					payload.mixin(headers) :

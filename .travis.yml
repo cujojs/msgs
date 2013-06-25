@@ -4,6 +4,9 @@ node_js:
 - '0.10'
 - '0.8'
 - '0.6'
+services:
+  - rabbitmq
+before_script: sudo rabbitmq-plugins enable rabbitmq_web_stomp; sudo service rabbitmq-server restart; sleep 3
 script: npm run-script ci
 env:
   global:

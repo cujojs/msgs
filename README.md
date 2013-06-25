@@ -177,6 +177,7 @@ Change Log
 
 .next
 - topic based channels using the form 'channelName!topic' anywhere a channel is resolved by name
+- STOMP - support for subscribing to remote topics
 - exchangeChannel providing basic subscription within a channel for topics
 - topicExchangeChannel providing AMQP style topic bindings
 - moved .inboundGateway() and .outboundGateway() from msgs into msgs/gateways, when.js is now an optional dependency

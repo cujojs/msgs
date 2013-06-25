@@ -21,6 +21,17 @@ config['msgs:node'] = {
 	]
 };
 
+config['msgs:integration'] = {
+	environment: 'node',
+	rootPath: '../',
+	tests: [
+		'test/**/*-test-integration.js'
+	],
+	testHelpers: [
+		'test/buster-assertions.js'
+	]
+};
+
 config['msgs:browser'] = {
 	environment: 'browser',
 	autoRun: false,
