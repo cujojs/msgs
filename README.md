@@ -28,7 +28,7 @@ All channels and handlers exist within the context of a message bus. The bus pro
 var bus = require('msgs').bus();
 
 bus.channel('lowercase');
-bus.transform(function (message) { return message.toUpperCase(); }, { input: 'lowercase', output: 'uppercase' });
+bus.transformer(function (message) { return message.toUpperCase(); }, { input: 'lowercase', output: 'uppercase' });
 bus.channel('uppercase');
 bus.on('uppercase', function (str) {
   console.log(str);
@@ -180,6 +180,7 @@ Change Log
 - STOMP - support for subscribing to remote topics
 - exchangeChannel providing basic subscription within a channel for topics
 - topicExchangeChannel providing AMQP style topic bindings
+- renamed bus.transform() to bus.transformer()
 - moved .inboundGateway() and .outboundGateway() from msgs into msgs/gateways, when.js is now an optional dependency
 - bus.on('channel', listener) - syntatic sugar over outboundAdapter
 - receive'ing from a queue returns the full message, not just the payload

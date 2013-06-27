@@ -569,7 +569,7 @@
 			 * Transform messages sent to this channel
 			 *
 			 * @param {string} [name] the name to register the transform as
-			 * @param {Function} translator transform function, invoked with
+			 * @param {Function} transform transform function, invoked with
 			 *   message payload and message headers as args, a new payload
 			 *   must be returned.
 			 * @param {string|Channel} [opts.output] the channel to forward
@@ -577,12 +577,12 @@
 			 * @param {string|Channel} [opts.input] the channel to receive
 			 *   message from
 			 * @param {string|Channel} [opts.error] channel to receive errors
-			 * @returns the transform
+			 * @returns the transformer
 			 */
-			transform: optionalName(function transform(name, translator, opts) {
+			transformer: optionalName(function transformer(name, transform, opts) {
 				opts = opts || {};
 				return this._handler(name, function (message) {
-					return message.mixin(translator.call(undef, message.payload, message.headers), {});
+					return message.mixin(transform.call(undef, message.payload, message.headers), {});
 				}, opts.output, opts.input, opts.error);
 			}),
 

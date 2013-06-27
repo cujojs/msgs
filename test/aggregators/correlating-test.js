@@ -45,13 +45,13 @@
 					return message.payload.split('');
 				}, { output: 'letters', input: 'in' });
 				bus.channel('letters');
-				bus.transform(function (message) {
+				bus.transformer(function (message) {
 					return upperCaseVowels(message);
 				}, { output: 'vowled', input: 'letters' });
 				bus.channel('vowled');
 				bus.correlatingAggregator({ output: 'merge', input: 'vowled' });
 				bus.channel('merge');
-				bus.transform(function (message) {
+				bus.transformer(function (message) {
 					var str = '';
 					message.forEach(function (message) {
 						str += message.payload;

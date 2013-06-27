@@ -113,7 +113,7 @@
 				};
 				wire(spec, { require: require }).then(function (spec) {
 					spec.bus.channel('world');
-					spec.bus.transform(function (message) {
+					spec.bus.transformer(function (message) {
 						return message.toUpperCase();
 					}, { input: 'world' });
 					spec.source.event();

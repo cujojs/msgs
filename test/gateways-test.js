@@ -30,7 +30,7 @@
 			},
 
 			'should resolve the gateway promise when there is no more work to do': function (done) {
-				bus.channel('target').subscribe(bus.transform(function (payload) {
+				bus.channel('target').subscribe(bus.transformer(function (payload) {
 					return 'Knock, knock? ' + payload;
 				}));
 				bus.inboundGateway('target')('Who\'s there?').then(function (response) {
@@ -38,7 +38,7 @@
 				}).otherwise(fail).always(done);
 			},
 			'should reject the gateway promise when an error is encountered': function (done) {
-				bus.channel('target').subscribe(bus.transform(function (/* payload */) {
+				bus.channel('target').subscribe(bus.transformer(function (/* payload */) {
 					throw new Error();
 				}));
 				bus.inboundGateway('target')('Who\'s there?').then(

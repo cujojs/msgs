@@ -353,10 +353,10 @@
 				assert.same(1, tap.handle.callCount);
 				assert.same(1, sub.callCount);
 			},
-			'should alter the message payload with a transform': function () {
+			'should alter the message payload with a transformer': function () {
 				bus.channel('in');
 				bus.channel('out');
-				bus.transform(function (message) {
+				bus.transformer(function (message) {
 					return message + '... NOT!';
 				}, { input: 'in', output: 'out' });
 				bus.on('out', function (message) {
@@ -423,10 +423,10 @@
 				assert.same(bus.resolveHandler('a'), bus.resolveHandler('c'));
 			},
 			'should execute chain handlers in order': function () {
-				bus.transform('jr', function (name) {
+				bus.transformer('jr', function (name) {
 					return name + ' Jr.';
 				});
-				bus.transform('md', function (name) {
+				bus.transformer('md', function (name) {
 					return name + ' M.D.';
 				});
 
@@ -588,7 +588,7 @@
 					});
 
 					bus.channel('world');
-					bus.transform(spy, { input: 'world' });
+					bus.transformer(spy, { input: 'world' });
 
 					bus.send('world!greeting', 'hello');
 					assert.same(1, spy.callCount);
@@ -599,7 +599,7 @@
 					channel = bus.channel('world');
 					channel.subscribe = this.spy(channel.subscribe);
 
-					handler = bus.transform(bus.utils.noop, { input: 'world!greeting' });
+					handler = bus.transformer(bus.utils.noop, { input: 'world!greeting' });
 
 					assert.same('greeting', channel.subscribe.firstCall.args[0]);
 					assert.same(handler, channel.subscribe.firstCall.args[1]);
@@ -610,7 +610,7 @@
 					channel = bus.channel('world');
 					channel.unsubscribe = this.spy(channel.subscribe);
 
-					handler = bus.transform(bus.utils.noop, { input: 'world!greeting' });
+					handler = bus.transformer(bus.utils.noop, { input: 'world!greeting' });
 					topic = bus.resolveChannel('world!greeting');
 					topic.unsubscribe(handler);
 
