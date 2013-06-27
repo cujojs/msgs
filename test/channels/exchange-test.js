@@ -137,7 +137,7 @@
 				}
 			},
 			'the topicExchangeChannel': {
-				'should match topics with wildcards': function () {
+				'should match topics with wild cards': function () {
 					var aSpy, bSpy, cSpy;
 
 					aSpy = this.spy(assertHello);
@@ -186,7 +186,7 @@
 					assert(exchangeDispatcher.matchers.topical('foo', 'foo'));
 					refute(exchangeDispatcher.matchers.topical('foo', 'bar'));
 				},
-				'should match with single word wildcards': function () {
+				'should match with single word wild cards': function () {
 					assert(exchangeDispatcher.matchers.topical('foo.*', 'foo.bar'));
 					refute(exchangeDispatcher.matchers.topical('foo.*', 'bar.foo'));
 
@@ -210,12 +210,12 @@
 					assert(exchangeDispatcher.matchers.topical('foo.#.baz', 'foo.bar.bar.baz'));
 					refute(exchangeDispatcher.matchers.topical('foo.#.baz', 'foo.bar.baz.bar'));
 				},
-				'should find flexable matches': function () {
+				'should find flexible matches': function () {
 					assert(exchangeDispatcher.matchers.topical('#.foo.bar.#', 'foo.foo.foo.foo.bar.foo'));
 					assert(exchangeDispatcher.matchers.topical('#.foo.bar.#', 'foo.foo.foo.bar.foo.foo'));
 					assert(exchangeDispatcher.matchers.topical('#.foo.bar.#', 'foo.foo.bar.foo.foo.foo'));
 				},
-				'should match with optional multi word wildcards': function () {
+				'should match with optional multi word wild cards': function () {
 					assert(exchangeDispatcher.matchers.topical('#.foo', 'foo'));
 					assert(exchangeDispatcher.matchers.topical('foo.#', 'foo'));
 					assert(exchangeDispatcher.matchers.topical('#.foo.#', 'foo'));

@@ -27,7 +27,7 @@
 			'should have the same version for package.json and bower.json': function () {
 				assert.same(bowerJson.version, packageJson.version);
 			},
-			'should have the same depenency versions for package.json and bower.json': function () {
+			'should have the same dependency versions for package.json and bower.json': function () {
 				// this may not always hold true, but it currently does
 				assert.equals(bowerJson.dependencies, packageJson.optionalDependencies);
 			}

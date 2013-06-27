@@ -478,7 +478,7 @@
 			 * @param {string|Channel} channel the channel to untap
 			 * @param {string|Handler} handler the receiver of tapped messages
 			 */
-			untap: function tap(channel, handler) {
+			untap: function untap(channel, handler) {
 				this.resolveChannel(channel).untap(handler);
 			},
 
@@ -755,7 +755,7 @@
 			 * @param {string|Channel} opts.input the channel to output
 			 *   messages for
 			 * @param {string|Channel} [opts.error] channel to receive errors
-			 * @retuns {Handler} the handler for this adapter
+			 * @returns {Handler} the handler for this adapter
 			 */
 			outboundAdapter: optionalName(function outboundAdapter(name, func, opts) {
 				opts = opts || {};
@@ -854,10 +854,10 @@
 
 	/**
 	 * Transform a channel to enable topical subscriptions. Wraps the channel's
-	 * 'send', 'subscribe' and 'unsubscribe' agumenting the method args with the
+	 * 'send', 'subscribe' and 'unsubscribe' augmenting the method args with the
 	 * topic info.
 	 *
-	 * The original channel is uneffected.
+	 * The original channel is unaffected.
 	 *
 	 * @param {string} topic the topic
 	 * @param {Channel} the channel to topicize

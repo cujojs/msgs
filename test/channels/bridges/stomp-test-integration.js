@@ -23,7 +23,7 @@
 		when = require('when');
 		require('msgs/adapters/nodeStream');
 
-		// expiramental, may make a first class citizen
+		// experimental, may make a first class citizen
 		msgs.prototype.next = function next(channel) {
 			var d, handler;
 			d = when.defer();

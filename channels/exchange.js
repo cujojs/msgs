@@ -24,7 +24,7 @@
 		 *
 		 * The topic matcher and dispatcher are configurable, they default to the
 		 * literal topic matcher and the broadcast dispatcher. By default all
-		 * handlers subscribed to the exact message topic will recieve the message.
+		 * handlers subscribed to the exact message topic will receive the message.
 		 *
 		 * @param {string} [name] the name to register this channel as
 		 * @param {Function} [opts.matcher=literal] matcher to decide if a message's
@@ -41,8 +41,8 @@
 
 		/**
 		 * Create a topic exchange channel. Topic subscriptions are handled as AMQP
-		 * style bindings. The topic is a serries of dot-delimited words with two
-		 * wildcards:
+		 * style bindings. The topic is a series of dot-delimited words with two
+		 * wild cards:
 		 * - '*' matches exactly one word
 		 * - '#' matches zero or more words
 		 *

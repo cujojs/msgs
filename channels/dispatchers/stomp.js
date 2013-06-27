@@ -30,9 +30,9 @@
 		 *
 		 * @param {MessageBus} bus message bus the dispatcher is created within
 		 * @param {string|Channel} opts.input channel to forward to the remote system
-		 * @param {string|Channel} opts.output channel that exposes messags from the
+		 * @param {string|Channel} opts.output channel that exposes messages from the
 		 *   remote system
-		 * @param {string|Channel} [opts.error] channel to recieve errors
+		 * @param {string|Channel} [opts.error] channel to receive errors
 		 * @param {string} opts.host virtual host that the client is connecting to
 		 * @param {string} [opts.login] user identifier used to authenticate against
 		 *   a secured STOMP server
@@ -171,9 +171,9 @@
 			 * Destroy the dispatcher:
 			 * - attempts to send a DISCONNECT command to the server
 			 * - attempts to notify the 'disconnected' channel on the control bus
-			 * - destory subscription dispatchers
+			 * - destroy subscription dispatchers
 			 * - destroy the control bus
-			 * - cleans up any linguring state
+			 * - cleans up any lingering state
 			 */
 			dispatcher.destroy = function destroy() {
 				var disconnectFrame;
@@ -223,21 +223,21 @@
 			}
 
 			// route server commands
-			bus._handler(undef, function (frame) {
-				var message, command;
-				message = translator.parse(frame.payload);
-				command = message.headers.command;
+			bus._handler(undef, function (message) {
+				var frame, command;
+				frame = translator.parse(message.payload);
+				command = frame.headers.command;
 				if (command === 'MESSAGE') {
-					handleMessageFrame(message);
+					handleMessageFrame(frame);
 				}
 				else if (command === 'RECEIPT') {
-					handleReceiptFrame(message);
+					handleReceiptFrame(frame);
 				}
 				else if (command === 'ERROR') {
-					handleErrorFrame(message);
+					handleErrorFrame(frame);
 				}
 				else if (command === 'CONNECTED') {
-					handleConnectedFrame(message);
+					handleConnectedFrame(frame);
 				}
 				else if (command) {
 					// unknown command

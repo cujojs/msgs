@@ -160,7 +160,7 @@
 				 *
 				 * @param {string} destination the destination to subscribe to
 				 * @param {string} id identifier for the subscription
-				 * @param {string} [ack] acknowledgement policy for the subscription
+				 * @param {string} [ack] acknowledgment policy for the subscription
 				 * @param {string} [receipt] require a RECEIPT frame with this key
 				 * @returns {string} STOMP SUBSCRIBE frame
 				 */

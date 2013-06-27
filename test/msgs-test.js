@@ -49,7 +49,7 @@
 				assert.same('payload', message.payload);
 				assert.same(4, message.headers.id);
 			},
-			'should not modify an exsisting message payload, headers must be different': function () {
+			'should not modify an existing message payload, headers must be different': function () {
 				var message = bus._message('payload');
 				assert.same(message.payload, bus._message(message).payload);
 				refute.equals(message.headers, bus._message(message).headers);
@@ -593,7 +593,7 @@
 					bus.send('world!greeting', 'hello');
 					assert.same(1, spy.callCount);
 				},
-				'should recieve the topic for handler subscriptions': function () {
+				'should receive the topic for handler subscriptions': function () {
 					var channel, handler;
 
 					channel = bus.channel('world');
@@ -604,7 +604,7 @@
 					assert.same('greeting', channel.subscribe.firstCall.args[0]);
 					assert.same(handler, channel.subscribe.firstCall.args[1]);
 				},
-				'should recieve the topic for handler unsubscriptions': function () {
+				'should receive the topic for handler unsubscriptions': function () {
 					var channel, topic, handler;
 
 					channel = bus.channel('world');

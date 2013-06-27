@@ -257,7 +257,7 @@
 					assert.match(message.payload, 'destination:/queue/foo');
 					assert.match(message.payload, '\n\nbar\x00');
 				},
-				'should recieve messages sent to a subscribed destination': {
+				'should receive messages sent to a subscribed destination': {
 					'': function () {
 						var subscriptionId;
 

@@ -23,8 +23,8 @@
 		wireFunctional = require('wire/lib/functional');
 
 		/**
-		 * Resolve the context's implicit bus making it available for msgs usecases
-		 * not directly supported by this plugin.
+		 * Resolve the context's implicit bus making it available for msgs use
+		 * cases not directly supported by this plugin.
 		 */
 		function busResolverFactory(bus) {
 			return function (resolver /*, name, refObj, wire */) {
@@ -79,7 +79,7 @@
 		}
 
 		/**
-		 * Create outboundAdapters for wire components subscibing them to bus
+		 * Create outboundAdapters for wire components subscribing them to bus
 		 * channels.
 		 */
 		function outboundAdapterFacetFactory(bus) {
@@ -108,8 +108,8 @@
 			 */
 			wire$plugin: function (/* options */) {
 
-				// bus proxy that can be sharred within the plugin
-				// instance state is mixed in durring plugin initialize phase
+				// bus proxy that can be shared within the plugin
+				// instance state is mixed in during plugin initialize phase
 				var bus = Object.create(msgs.prototype);
 
 				return {

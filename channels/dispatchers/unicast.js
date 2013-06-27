@@ -30,7 +30,7 @@
 			getHandlers = dispatcher._handlers;
 			delete dispatcher._handlers;
 
-			// deafult to a random load balancer
+			// default to a random load balancer
 			loadBalancer = loadBalancer || unicastDispatcher.loadBalancers.random();
 
 			/**

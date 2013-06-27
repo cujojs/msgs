@@ -35,7 +35,7 @@
 				bus.destroy();
 			},
 
-			'should recieve messages with inboundWebWorkerAdapter': function (done) {
+			'should receive messages with inboundWebWorkerAdapter': function (done) {
 				var worker, data;
 
 				worker = new StubWorker();

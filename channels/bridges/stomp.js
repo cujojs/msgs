@@ -18,7 +18,7 @@
 		msgs = require('../..');
 		stompDispatcher = require('../dispatchers/stomp');
 
-		// intionally not requiring ../adapters/nodeStream and ../adapters/webSocket
+		// intentionally not requiring ../adapters/nodeStream and ../adapters/webSocket
 		// user should load them if their behavior is needed
 
 		/**
@@ -29,9 +29,9 @@
 		 *
 		 * @param {string} [name] name to register the bridge as
 		 * @param {string|Channel} opts.input channel to forward to the remote system
-		 * @param {string|Channel} opts.output channel that exposes messags from the
+		 * @param {string|Channel} opts.output channel that exposes messages from the
 		 *   remote system
-		 * @param {string|Channel} [opts.error] channel to recieve errors
+		 * @param {string|Channel} [opts.error] channel to receive errors
 		 * @param {string} opts.host virtual host that the client is connecting to
 		 * @param {string} [opts.login] user identifier used to authenticate against
 		 *   a secured STOMP server

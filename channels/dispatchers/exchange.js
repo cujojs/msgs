@@ -11,8 +11,8 @@
 	var undef;
 
 	/**
-	 * Exchange dispatcher. Subscribers matching the message topic recieve the
-	 * message according to the topic disapatching strategy.
+	 * Exchange dispatcher. Subscribers matching the message topic receive the
+	 * message according to the topic dispatching strategy.
 	 */
 	define(function (/* require */) {
 
