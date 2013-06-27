@@ -8,7 +8,7 @@
 (function (buster, define) {
 	'use strict';
 
-	var assert, refute, fail, undef;
+	var assert, refute, fail;
 
 	assert = buster.assert;
 	refute = buster.refute;
@@ -224,8 +224,8 @@
 
 				channel = child.channel();
 
-				parent.deadLetterChannel.subscribe(parent.outboundAdapter(callback));
-				child.deadLetterChannel.subscribe(child.outboundAdapter(callback));
+				parent.on('deadLetterChannel', callback);
+				child.on('deadLetterChannel', callback);
 
 				bus.send(channel, 'you\'re dead to me');
 				assert.same(2, callback.callCount);
@@ -242,10 +242,10 @@
 
 				channel = child.channel();
 
-				parent.invalidMessageChannel.subscribe(parent.outboundAdapter(callback));
-				child.invalidMessageChannel.subscribe(child.outboundAdapter(callback));
+				parent.on('invalidMessageChannel', callback);
+				child.on('invalidMessageChannel', callback);
 
-				channel.subscribe(child.outboundAdapter(function () { throw new Error(); }));
+				child.on(channel, function () { throw new Error(); });
 
 				bus.send(channel, 'let\'s hope this works');
 				assert.same(2, callback.callCount);
@@ -260,8 +260,8 @@
 				bSpy = this.spy(function (message) {
 					assert.equals('one of us gets a message!', message);
 				});
-				channel.subscribe(bus.outboundAdapter(aSpy));
-				channel.subscribe(bus.outboundAdapter(bSpy));
+				bus.on(channel, aSpy);
+				bus.on(channel, bSpy);
 
 				bus.send(channel, 'one of us gets a message!');
 				bus.send(channel, 'one of us gets a message!');
@@ -279,7 +279,7 @@
 					assert.equals('it feels like we\'re being watched', message);
 				});
 				bus.tap(channel, bus.outboundAdapter(tap));
-				bus.subscribe(channel, bus.outboundAdapter(sub));
+				bus.on(channel, sub);
 
 				bus.send(channel, 'it feels like we\'re being watched');
 
@@ -304,8 +304,8 @@
 				});
 				bus.tap(channel, bus.outboundAdapter(tapA));
 				bus.tap(channel, bus.outboundAdapter(tapB));
-				bus.subscribe(channel, bus.outboundAdapter(subA));
-				bus.subscribe(channel, bus.outboundAdapter(subB));
+				bus.on(channel, subA);
+				bus.on(channel, subB);
 
 				bus.send(channel, 'it feels like we\'re being watched');
 				bus.send(channel, 'it feels like we\'re being watched');
@@ -346,7 +346,7 @@
 				});
 
 				channel.tap(tap);
-				bus.subscribe(channel, bus.outboundAdapter(sub));
+				bus.on(channel, sub);
 
 				bus.send(channel, 'it feels like we\'re being watched');
 
@@ -359,10 +359,10 @@
 				bus.transform(function (message) {
 					return message + '... NOT!';
 				}, { input: 'in', output: 'out' });
-				bus.subscribe('out', bus.outboundAdapter(function (message) {
+				bus.on('out', function (message) {
 					assert.same('JavaScript sucks... NOT!', message);
-				}));
-				bus.inboundAdapter('in').call(undef, 'JavaScript sucks');
+				});
+				bus.send('in', 'JavaScript sucks');
 			},
 			'should filter messages that do not match some criteria': function () {
 				var func, oddSpy, evenSpy;
@@ -377,8 +377,8 @@
 				bus.channel('otherNumbers');
 				func = bus.inboundAdapter('in');
 				bus.filter(function (num) { return num % 2 === 1; }, { input: 'in', output: 'goodNumbers', discard: 'otherNumbers' });
-				bus.subscribe('goodNumbers', bus.outboundAdapter(oddSpy));
-				bus.subscribe('otherNumbers', bus.outboundAdapter(evenSpy));
+				bus.on('goodNumbers', oddSpy);
+				bus.on('otherNumbers', evenSpy);
 				func(0);
 				func(1);
 				func(2);
@@ -391,18 +391,18 @@
 				bus.channel('in');
 				bus.router(function (message) { return message.headers.dest; }, { input: 'in' });
 				bus.channel('resort');
-				bus.subscribe('resort', bus.outboundAdapter(function (message) {
+				bus.on('resort', function (message) {
 					assert.same('Did I end up at the resort?', message);
-				}));
+				});
 				bus.send('in', 'Did I end up at the resort?', { dest: 'resort' });
 			},
 			'should route messages with channel aliases': function () {
 				bus.channel('in');
 				bus.router(function (message) { return message.headers.dest; }, { routes: { resort: 'disneyWorld' }, input: 'in' });
 				bus.channel('disneyWorld');
-				bus.subscribe('disneyWorld', bus.outboundAdapter(function (message) {
+				bus.on('disneyWorld', function (message) {
 					assert.same('Did I end up at the resort?', message);
-				}));
+				});
 				bus.send('in', 'Did I end up at the resort?', { dest: 'resort' });
 			},
 			'should not suppress routing errors': function () {
@@ -445,7 +445,7 @@
 
 				bus.channel('start');
 				bus.channel('end');
-				bus.subscribe('end', bus.outboundAdapter(spy));
+				bus.on('end', spy);
 
 				bus.chain([
 					bus.filter(function (message) {
@@ -556,7 +556,7 @@
 				bus.channel('b');
 
 				bus.forward('a', 'b');
-				bus.subscribe('b', bus.outboundAdapter(spy));
+				bus.on('b', spy);
 
 				bus.send('a', 'hello');
 				assert.same(1, spy.callCount);

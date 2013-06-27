@@ -59,7 +59,7 @@
 					return str;
 				}, { output: 'out', input: 'merge' });
 				bus.channel('out');
-				bus.outboundAdapter(out, { input: 'out' });
+				bus.on('out', out);
 
 				bus.send('in', 'abcdefghijklmnopqrstuvwxyz');
 

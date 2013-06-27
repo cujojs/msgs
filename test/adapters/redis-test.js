@@ -43,10 +43,10 @@
 				bus.channel('messages');
 				bus.inboundRedisAdapter(client, 'topic', { output: 'messages' });
 
-				bus.outboundAdapter(function (payload) {
+				bus.on('messages', function (payload) {
 					assert.same(msg, payload);
 					done();
-				}, { input: 'messages' });
+				});
 
 				assert.calledWith(client.subscribe, 'topic');
 
@@ -89,10 +89,10 @@
 				bus.channel('messages');
 				bus.redisGateway(function () { return client; }, 'topic', { error: 'messages', input: 'messages' });
 
-				bus.outboundAdapter(function (payload) {
+				bus.on('messages', function (payload) {
 					assert.same(msg, payload);
 					done();
-				}, { input: 'messages' });
+				});
 
 				msg = 'uh oh';
 				client.error(msg);

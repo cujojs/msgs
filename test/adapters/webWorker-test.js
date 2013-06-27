@@ -42,10 +42,10 @@
 				bus.channel('messages');
 				bus.inboundWebWorkerAdapter(worker, { output: 'messages' });
 
-				bus.outboundAdapter(function (payload) {
+				bus.on('messages', function (payload) {
 					assert.same(data, payload);
 					done();
-				}, { input: 'messages' });
+				});
 
 				data = {};
 				worker.message({ data: data });
@@ -83,10 +83,10 @@
 				bus.channel('messages');
 				bus.webWorkerGateway(worker, { error: 'messages' });
 
-				bus.outboundAdapter(function (payload) {
+				bus.on('messages', function (payload) {
 					assert.same(data, payload);
 					done();
-				}, { input: 'messages' });
+				});
 
 				data = 'uh oh';
 				worker.error(data);

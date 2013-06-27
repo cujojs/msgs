@@ -40,7 +40,7 @@
 
 					bus.exchangeChannel('world');
 					spy = this.spy(assertHello);
-					bus.outboundAdapter(spy, { input: 'world!greeting' });
+					bus.on('world!greeting', spy);
 
 					bus.send('world!greeting', 'hello');
 
@@ -53,7 +53,7 @@
 					spy = this.spy(function () {
 						fail();
 					});
-					bus.outboundAdapter(spy, { input: 'world!somethingElse' });
+					bus.on('world!somethingElse', spy);
 
 					bus.send('world!greeting', 'hello');
 
@@ -66,8 +66,8 @@
 					bSpy = this.spy(assertHello);
 
 					bus.exchangeChannel('world');
-					bus.outboundAdapter(aSpy, { input: 'world!greeting' });
-					bus.outboundAdapter(bSpy, { input: 'world!greeting' });
+					bus.on('world!greeting', aSpy);
+					bus.on('world!greeting', bSpy);
 
 					bus.send('world!greeting', 'hello');
 					bus.send('world!greeting', 'hello');
@@ -82,8 +82,8 @@
 					bSpy = this.spy(assertHello);
 
 					bus.exchangeChannel('world', { dispatcher: unicastDispatcher });
-					bus.outboundAdapter(aSpy, { input: 'world!greeting' });
-					bus.outboundAdapter(bSpy, { input: 'world!greeting' });
+					bus.on('world!greeting', aSpy);
+					bus.on('world!greeting', bSpy);
 
 					bus.send('world!greeting', 'hello');
 					bus.send('world!greeting', 'hello');
@@ -97,8 +97,8 @@
 					bSpy = this.spy(assertHello);
 
 					bus.exchangeChannel('world', { matcher: function () { return true; } });
-					bus.outboundAdapter(aSpy, { input: 'world!aTopic' });
-					bus.outboundAdapter(bSpy, { input: 'world!bTopic' });
+					bus.on('world!aTopic', aSpy);
+					bus.on('world!bTopic', bSpy);
 
 					bus.send('world!greeting', 'hello');
 
@@ -145,9 +145,9 @@
 					cSpy = this.spy(assertHello);
 
 					bus.topicExchangeChannel('world');
-					bus.outboundAdapter(aSpy, { input: 'world!greeting.#' });
-					bus.outboundAdapter(bSpy, { input: 'world!greeting.en.*' });
-					bus.outboundAdapter(cSpy, { input: 'world!#.fr.#' });
+					bus.on('world!greeting.#', aSpy);
+					bus.on('world!greeting.en.*', bSpy);
+					bus.on('world!#.fr.#', cSpy);
 
 					bus.send('world!greeting.en.us', 'hello');
 
@@ -162,8 +162,8 @@
 					bSpy = this.spy(assertHello);
 
 					bus.topicExchangeChannel('world');
-					bus.outboundAdapter(aSpy, { input: 'world!greeting' });
-					bus.outboundAdapter(bSpy, { input: 'world!greeting' });
+					bus.on('world!greeting', aSpy);
+					bus.on('world!greeting', bSpy);
 
 					bus.send('world!greeting', 'hello');
 					bus.send('world!greeting', 'hello');

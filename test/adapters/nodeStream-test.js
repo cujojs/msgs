@@ -42,10 +42,10 @@
 				bus.channel('messages');
 				bus.inboundNodeStreamAdapter(stream, { output: 'messages' });
 
-				bus.outboundAdapter(function (payload) {
+				bus.on('messages', function (payload) {
 					assert.same(data, payload);
 					done();
-				}, { input: 'messages' });
+				});
 
 				data = {};
 				stream.data(data);
@@ -101,10 +101,10 @@
 				bus.channel('messages');
 				bus.nodeStreamGateway(stream, { error: 'messages' });
 
-				bus.outboundAdapter(function (payload) {
+				bus.on('messages', function (payload) {
 					assert.same(data, payload);
 					done();
-				}, { input: 'messages' });
+				});
 
 				data = 'uh oh';
 				stream.error(data);

@@ -264,9 +264,9 @@
 						bus.stompBridge('bridge', { input: 'fromServer', output: 'toServer' });
 						bus.send('fromServer', 'CONNECTED\n\n\x00');
 
-						bus.outboundAdapter(function (greeting) {
+						bus.on('bridge!greeting', function (greeting) {
 							assert.same('hello', greeting);
-						}, { input: 'bridge!greeting' });
+						});
 						subscriptionId = extractIdHeader(bus.receive('subscribe').payload);
 
 						bus.send('fromServer', 'MESSAGE\ndestination:greeting\nsubscription:' + subscriptionId + '\nmessage-id:23\n\nhello\x00');
@@ -279,9 +279,9 @@
 						bus.stompBridge('bridge', { input: 'fromServer', output: 'toServer', ack: 'client-individual' });
 						bus.send('fromServer', 'CONNECTED\n\n\x00');
 
-						bus.outboundAdapter(function (greeting) {
+						bus.on('bridge!greeting', function (greeting) {
 							assert.same('hello', greeting);
-						}, { input: 'bridge!greeting' });
+						});
 						subscriptionId = extractIdHeader(bus.receive('subscribe').payload);
 
 						bus.send('fromServer', 'MESSAGE\ndestination:greeting\nsubscription:' + subscriptionId + '\nmessage-id:23\n\nhello\x00');
@@ -294,9 +294,9 @@
 						bus.stompBridge('bridge', { input: 'fromServer', output: 'toServer', error: 'errors' });
 						bus.send('fromServer', 'CONNECTED\n\n\x00');
 
-						bus.outboundAdapter(function () {
+						bus.on('bridge!greeting', function () {
 							fail('message should not be delivered');
-						}, { input: 'bridge!greeting' });
+						});
 						assert(bus.receive('subscribe'));
 
 						refute(bus.receive('errorsLog'));
@@ -310,9 +310,9 @@
 						bus.stompBridge('bridge', { input: 'fromServer', output: 'toServer', error: 'errors', ack: 'client-individual' });
 						bus.send('fromServer', 'CONNECTED\n\n\x00');
 
-						bus.outboundAdapter(function () {
+						bus.on('bridge!greeting', function () {
 							fail('message should not be delivered');
-						}, { input: 'bridge!greeting' });
+						});
 						assert(bus.receive('subscribe'));
 
 						refute(bus.receive('errorsLog'));
@@ -328,9 +328,9 @@
 						bus.stompBridge('bridge', { input: 'fromServer', output: 'toServer', error: 'errors' });
 						bus.send('fromServer', 'CONNECTED\n\n\x00');
 
-						bus.outboundAdapter(function () {
+						bus.on('bridge!greeting', function () {
 							fail('message should not be delivered');
-						}, { input: 'bridge!greeting' });
+						});
 						assert(bus.receive('subscribe'));
 
 						refute(bus.receive('errorsLog'));
@@ -344,9 +344,9 @@
 						bus.stompBridge('bridge', { input: 'fromServer', output: 'toServer', error: 'errors', ack: 'client-individual' });
 						bus.send('fromServer', 'CONNECTED\n\n\x00');
 
-						bus.outboundAdapter(function () {
+						bus.on('bridge!greeting', function () {
 							fail('message should not be delivered');
-						}, { input: 'bridge!greeting' });
+						});
 						assert(bus.receive('subscribe'));
 
 						refute(bus.receive('errorsLog'));

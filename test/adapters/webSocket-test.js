@@ -42,10 +42,10 @@
 				bus.channel('messages');
 				bus.inboundWebSocketAdapter(socket, { output: 'messages' });
 
-				bus.outboundAdapter(function (payload) {
+				bus.on('messages', function (payload) {
 					assert.same(data, payload);
 					done();
-				}, { input: 'messages' });
+				});
 
 				data = {};
 				socket.message({ data: data });
@@ -101,10 +101,10 @@
 				bus.channel('messages');
 				bus.webSocketGateway(socket, { error: 'messages' });
 
-				bus.outboundAdapter(function (payload) {
+				bus.on('messages', function (payload) {
 					assert.same(data, payload);
 					done();
-				}, { input: 'messages' });
+				});
 
 				data = 'uh oh';
 				socket.error(data);
