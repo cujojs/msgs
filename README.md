@@ -44,7 +44,7 @@ While converting a string to upper case is a bit contrived, it demonstrates the 
 ```javascript
 var bus, webSocketServer;
 
-require('msgs/adapters/nodeStream');
+require('msgs/adapters/stream');
 require('msgs/channels/pubsub');
 
 bus = require('msgs').bus();
@@ -52,19 +52,19 @@ webSocketServer = ...;
 
 bus.pubsubChannel('broadcast');
 webSocketServer.on('connection', function (connection) {
-  bus.nodeStreamGateway(connection, { output: 'broadcast', input: 'broadcast' });
+  bus.streamGateway(connection, { output: 'broadcast', input: 'broadcast' });
 });
 
 ```
 
-Here we're using a publish-subscribe channel to broadcast all messages received from a web socket to every connected web socket.  The `broadcast` channel serves as a medium to receive and dispatch messages. For each new web socket connection that is established, the nodeStreamGateway reads messages sent to the server, and then writes messages back to the client.
+Here we're using a publish-subscribe channel to broadcast all messages received from a web socket to every connected web socket.  The `broadcast` channel serves as a medium to receive and dispatch messages. For each new web socket connection that is established, the streamGateway reads messages sent to the server, and then writes messages back to the client.
 
 This works as long as there is only ever a single application instance, but what if we need to scale horizontally?  In that case, we just need to fold in a inter-process messaging solution, Redis in this case.
 
 ```javascript
 var bus, webSocketServer, redis;
 
-require('msgs/adapters/nodeStream');
+require('msgs/adapters/stream');
 require('msgs/adapters/redis');
 require('msgs/channels/pubsub');
 
@@ -75,12 +75,12 @@ webSocketServer = ...;
 bus.pubsubChannel('fromClient');
 bus.pubsubChannel('toClient');
 webSocketServer.on('connection', function (connection) {
-  bus.nodeStreamGateway(connection, { output: 'fromClient', input: 'toClient' });
+  bus.streamGateway(connection, { output: 'fromClient', input: 'toClient' });
 });
 bus.redisGateway(redis.createClient, 'redisTopic', { output: 'toClient', input: 'fromClient' });
 ```
 
-We took the previous example, altering the nodeStreamGateway to use different channels for sending and receiving messages. The redisGateway bridges these channels while broadcasting messages to every other instance connected to Redis.
+We took the previous example, altering the streamGateway to use different channels for sending and receiving messages. The redisGateway bridges these channels while broadcasting messages to every other instance connected to Redis.
 
 Once your application is using messaging, it's rather trivial to extend it into new environments.
 
@@ -182,6 +182,7 @@ Change Log
 - topicExchangeChannel providing AMQP style topic bindings
 - renamed bus.transform() to bus.transformer()
 - renamed WebWorker to MessagePort
+- renamed NodeStream to Stream
 - moved .inboundGateway() and .outboundGateway() from msgs into msgs/gateways, when.js is now an optional dependency
 - bus.on('channel', listener) - syntatic sugar over outboundAdapter
 - receive'ing from a queue returns the full message, not just the payload

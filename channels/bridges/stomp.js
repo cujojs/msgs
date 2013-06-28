@@ -18,7 +18,7 @@
 		msgs = require('../..');
 		stompDispatcher = require('../dispatchers/stomp');
 
-		// intentionally not requiring ../adapters/nodeStream and ../adapters/webSocket
+		// intentionally not requiring ../adapters/stream and ../adapters/webSocket
 		// user should load them if their behavior is needed
 
 		/**
@@ -72,10 +72,10 @@
 		});
 
 		/**
-		 * STOMP bridge that communicates over a Node Stream
+		 * STOMP bridge that communicates over a Stream
 		 *
 		 * @param {string} [name] name to register the bridge as
-		 * @param {Stream} stream the node stream
+		 * @param {Stream} stream the stream
 		 * @param {string} opts.host virtual host that the client is connecting to
 		 * @param {string} [opts.login] user identifier used to authenticate against
 		 *   a secured STOMP server
@@ -85,14 +85,14 @@
 		 *   messages for a subscription. May be one of 'auto', 'client', or
 		 *   'client-individual'.
 		 */
-		msgs.prototype.stompNodeStreamBridge = msgs.utils.optionalName(function stompNodeStreamBridge(name, stream, opts) {
+		msgs.prototype.stompStreamBridge = msgs.utils.optionalName(function stompStreamBridge(name, stream, opts) {
 			var input, output, error;
 
 			input = this.channel();
 			output = this.channel();
 			error = this.channel();
 
-			this.nodeStreamGateway(stream, { input: input, output: output, error: error });
+			this.streamGateway(stream, { input: input, output: output, error: error });
 
 			return this.stompBridge(name, this.utils.mixin({ input: output, output: input, error: error }, opts));
 		});

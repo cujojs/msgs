@@ -21,13 +21,13 @@
 		}
 	};
 
-	define('msgs/adapters/nodeStream-test', function (require) {
+	define('msgs/adapters/stream-test', function (require) {
 
 		var msgs, bus;
 
-		msgs = require('msgs/adapters/nodeStream');
+		msgs = require('msgs/adapters/stream');
 
-		buster.testCase('msgs/adapters/nodeStream', {
+		buster.testCase('msgs/adapters/stream', {
 			setUp: function () {
 				bus = msgs.bus();
 			},
@@ -35,12 +35,12 @@
 				bus.destroy();
 			},
 
-			'should receive data events as messages with inboundNodeStreamAdapter': function (done) {
+			'should receive data events as messages with inboundStreamAdapter': function (done) {
 				var stream, data;
 
 				stream = new StubStream();
 				bus.channel('messages');
-				bus.inboundNodeStreamAdapter(stream, { output: 'messages' });
+				bus.inboundStreamAdapter(stream, { output: 'messages' });
 
 				bus.on('messages', function (payload) {
 					assert.same(data, payload);
@@ -50,13 +50,13 @@
 				data = {};
 				stream.data(data);
 			},
-			'should write messages to the stream with outboundNodeStreamAdapter': function () {
+			'should write messages to the stream with outboundStreamAdapter': function () {
 				var stream, data;
 
 				stream = new StubStream();
 				stream.write = this.spy();
 				bus.channel('messages');
-				bus.outboundNodeStreamAdapter(stream, { input: 'messages' });
+				bus.outboundStreamAdapter(stream, { input: 'messages' });
 
 				data = {};
 				bus.send('messages', data);
@@ -69,7 +69,7 @@
 				stream = new StubStream();
 				stream.write = this.spy();
 				bus.channel('messages');
-				bus.outboundNodeStreamAdapter(stream, { input: 'messages' });
+				bus.outboundStreamAdapter(stream, { input: 'messages' });
 
 				data = ['a', 'b', 'c'];
 				bus.send('messages', data[0]);
@@ -87,7 +87,7 @@
 				stream = new StubStream();
 				stream.write = this.spy();
 				bus.channel('messages');
-				bus.nodeStreamGateway(stream, { input: 'messages', output: 'messages' });
+				bus.streamGateway(stream, { input: 'messages', output: 'messages' });
 
 				data = 'echo';
 				stream.data(data);
@@ -99,7 +99,7 @@
 
 				stream = new StubStream();
 				bus.channel('messages');
-				bus.nodeStreamGateway(stream, { error: 'messages' });
+				bus.streamGateway(stream, { error: 'messages' });
 
 				bus.on('messages', function (payload) {
 					assert.same(data, payload);

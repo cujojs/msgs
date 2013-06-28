@@ -21,7 +21,7 @@
 		msgs = require('msgs/channels/bridges/stomp');
 		sjsc = require('sockjs-client');
 		when = require('when');
-		require('msgs/adapters/nodeStream');
+		require('msgs/adapters/stream');
 
 		// experimental, may make a first class citizen
 		msgs.prototype.next = function next(channel) {
@@ -40,7 +40,7 @@
 
 				socket = sjsc.create('http://localhost:15674/stomp');
 				socket.on('connection', function () {
-					controlBus = bus.stompNodeStreamBridge('stomp', socket, { login: 'guest', passcode: 'guest' }).controlBus;
+					controlBus = bus.stompStreamBridge('stomp', socket, { login: 'guest', passcode: 'guest' }).controlBus;
 					controlBus.on('connected', done);
 
 //					controlBus.logger({ tap: 'toServer', prefix: 'toServer:' });
