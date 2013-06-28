@@ -21,13 +21,13 @@
 		}
 	};
 
-	define('msgs/adapters/webWorker-test', function (require) {
+	define('msgs/adapters/messagePort-test', function (require) {
 
 		var msgs, bus;
 
-		msgs = require('msgs/adapters/webWorker');
+		msgs = require('msgs/adapters/messagePort');
 
-		buster.testCase('msgs/adapters/webWorker', {
+		buster.testCase('msgs/adapters/messagePort', {
 			setUp: function () {
 				bus = msgs.bus();
 			},
@@ -35,12 +35,12 @@
 				bus.destroy();
 			},
 
-			'should receive messages with inboundWebWorkerAdapter': function (done) {
+			'should receive messages with inboundMessagePortAdapter': function (done) {
 				var worker, data;
 
 				worker = new StubWorker();
 				bus.channel('messages');
-				bus.inboundWebWorkerAdapter(worker, { output: 'messages' });
+				bus.inboundMessagePortAdapter(worker, { output: 'messages' });
 
 				bus.on('messages', function (payload) {
 					assert.same(data, payload);
@@ -50,13 +50,13 @@
 				data = {};
 				worker.message({ data: data });
 			},
-			'should post messages to the worker with outboundWebWorkerAdapter': function () {
+			'should post messages to the worker with outboundMessagePortAdapter': function () {
 				var worker, data;
 
 				worker = new StubWorker();
 				worker.postMessage = this.spy();
 				bus.channel('messages');
-				bus.outboundWebWorkerAdapter(worker, { input: 'messages' });
+				bus.outboundMessagePortAdapter(worker, { input: 'messages' });
 
 				data = {};
 				bus.send('messages', data);
@@ -69,7 +69,7 @@
 				worker = new StubWorker();
 				worker.postMessage = this.spy();
 				bus.channel('messages');
-				bus.webWorkerGateway(worker, { input: 'messages', output: 'messages' });
+				bus.messagePortGateway(worker, { input: 'messages', output: 'messages' });
 
 				data = 'echo';
 				worker.message({ data: data });
@@ -81,7 +81,7 @@
 
 				worker = new StubWorker();
 				bus.channel('messages');
-				bus.webWorkerGateway(worker, { error: 'messages' });
+				bus.messagePortGateway(worker, { error: 'messages' });
 
 				bus.on('messages', function (payload) {
 					assert.same(data, payload);
