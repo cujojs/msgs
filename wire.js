@@ -15,12 +15,12 @@
 	 */
 	define(function (require) {
 
-		var msgs, when, wireArray, wireFunctional;
+		var msgs, when, wireArray, wirePipeline;
 
 		msgs = require('./gateways');
 		when = require('when');
 		wireArray = require('wire/lib/array');
-		wireFunctional = require('wire/lib/functional');
+		wirePipeline = require('wire/lib/pipeline');
 
 		/**
 		 * Resolve the context's implicit bus making it available for msgs use
@@ -87,7 +87,7 @@
 				var config = facet.options;
 				when.map(Object.keys(config), function (channel) {
 					return when.map(wireArray.delegate(config[channel]), function (target) {
-						return wireFunctional.compose.parse(facet, target, wire).then(function (func) {
+						return wirePipeline(facet, target, wire).then(function (func) {
 							return bus.outboundAdapter(func, { input: channel });
 						});
 					});
