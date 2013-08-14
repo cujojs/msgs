@@ -40,13 +40,13 @@
 		function tapControlBus(name) {
 			var controlBus = bus.resolveChannel(name || 'bridge').controlBus;
 
-			controlBus.tap('connected', bus.bridge(bus.queueChannel('cbConnectedLog')));
-			controlBus.tap('disconnected', bus.bridge(bus.queueChannel('cbDisconnectedLog')));
-			controlBus.tap('subscribed', bus.bridge(bus.queueChannel('cbSubscribedLog')));
-			controlBus.tap('unsubscribed', bus.bridge(bus.queueChannel('cbUnsubscribedLog')));
-			controlBus.tap('toServer', bus.bridge(bus.queueChannel('cbToServerLog')));
-			controlBus.tap('fromServer', bus.bridge(bus.queueChannel('cbFromServerLog')));
-			controlBus.tap('error', bus.bridge(bus.queueChannel('cbErrorLog')));
+			controlBus.tap('connected', bus.forward(bus.queueChannel('cbConnectedLog')));
+			controlBus.tap('disconnected', bus.forward(bus.queueChannel('cbDisconnectedLog')));
+			controlBus.tap('subscribed', bus.forward(bus.queueChannel('cbSubscribedLog')));
+			controlBus.tap('unsubscribed', bus.forward(bus.queueChannel('cbUnsubscribedLog')));
+			controlBus.tap('toServer', bus.forward(bus.queueChannel('cbToServerLog')));
+			controlBus.tap('fromServer', bus.forward(bus.queueChannel('cbFromServerLog')));
+			controlBus.tap('error', bus.forward(bus.queueChannel('cbErrorLog')));
 		}
 
 		buster.testCase('msgs/bridges/stomp', {
@@ -63,21 +63,21 @@
 					bus.pubsubChannel('fromServer');
 					bus.pubsubChannel('errors');
 
-					bus.tap('toServer', bus.bridge(bus.queueChannel('toServerLog')));
-					bus.tap('fromServer', bus.bridge(bus.queueChannel('fromServerLog')));
-					bus.tap('errors', bus.bridge(bus.queueChannel('errorsLog')));
+					bus.tap('toServer', bus.forward(bus.queueChannel('toServerLog')));
+					bus.tap('fromServer', bus.forward(bus.queueChannel('fromServerLog')));
+					bus.tap('errors', bus.forward(bus.queueChannel('errorsLog')));
 
 					bus.exchangeChannel('frames');
 
 					clientCommands.forEach(function (command) {
-						bus.subscribe('frames!' + command, bus.bridge(bus.queueChannel(command)));
+						bus.subscribe('frames!' + command, bus.forward(bus.queueChannel(command)));
 					});
 					bus.router(function (message) {
 						return 'frames!' + message.payload.split('\n')[0].toLowerCase();
 					}, { input: 'toServer' });
 
 					serverCommands.forEach(function (command) {
-						bus.subscribe('frames!' + command, bus.bridge(bus.queueChannel(command)));
+						bus.subscribe('frames!' + command, bus.forward(bus.queueChannel(command)));
 					});
 					bus.router(function (message) {
 						return 'frames!' + message.payload.split('\n')[0].toLowerCase();

@@ -180,6 +180,7 @@ Change Log
 - STOMP - support for subscribing to remote topics
 - exchangeChannel providing basic subscription within a channel for topics
 - topicExchangeChannel providing AMQP style topic bindings
+- removed bus.bridge() use bus.forward() instead
 - renamed bus.transform() to bus.transformer()
 - renamed WebWorker to MessagePort
 - renamed NodeStream to Stream

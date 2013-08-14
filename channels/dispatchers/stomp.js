@@ -67,12 +67,12 @@
 			controlBus._channel('error', broadcastDispatcher());
 
 			// expose raw STOMP traffic via the control bus
-			bus.tap(opts.output, controlBus.bridge('toServer'));
-			bus.tap(opts.input, controlBus.bridge('fromServer'));
+			bus.tap(opts.output, controlBus.forward('toServer'));
+			bus.tap(opts.input, controlBus.forward('fromServer'));
 
 			// normalize opts.error to send errors to the control bus
 			if (opts.error) {
-				bus.tap(opts.error, controlBus.bridge('error'));
+				bus.tap(opts.error, controlBus.forward('error'));
 			}
 			else {
 				opts.error = controlBus.resolveChannel('error');

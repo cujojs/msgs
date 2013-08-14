@@ -240,8 +240,8 @@
 
 			if (parent) {
 				// share messages with parent's channels
-				this.deadLetterChannel.subscribe(this.bridge(parent.deadLetterChannel));
-				this.invalidMessageChannel.subscribe(this.bridge(parent.invalidMessageChannel));
+				this.deadLetterChannel.subscribe(this.forward(parent.deadLetterChannel));
+				this.invalidMessageChannel.subscribe(this.forward(parent.invalidMessageChannel));
 
 				/**
 				 * Make a channel available to the parent bus. Useful for
@@ -494,27 +494,16 @@
 			},
 
 			/**
-			 * Handler that sends messages directly to the target channel
-			 *
-			 * @param {string} [name] the name to register the forward as
-			 * @param {string|Channel} target the channel to forward to
-			 */
-			bridge: function bridge(name, target) {
-				// optionalName won't work since target may be a string
-				if (arguments.length < 2) {
-					target = name;
-					name = '';
-				}
-				return this._handler(name, this.utils.noop, target);
-			},
-
-			/**
 			 * Forwards messages from one channel directly to another
 			 *
-			 * @param {string|Channel} from source channel
+			 * @param {string|Channel} [from] source channel
 			 * @param {string|Channel} to recipient channel
 			 */
 			forward: function forward(from, to) {
+				if (arguments.length === 1) {
+					to = from;
+					from = undef;
+				}
 				return this._handler(undef, this.utils.noop, to, from);
 			},
 
