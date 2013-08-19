@@ -175,7 +175,8 @@ msgs.js is made available under the MIT license.  See LICENSE.txt for details.
 Change Log
 ----------
 
-.next
+0.3.3
+- extended when.js version to allow when@2.x
 - add Node 0.10 as a tested environment
 - component.json -> package.json for bower
 
