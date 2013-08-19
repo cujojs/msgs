@@ -157,8 +157,8 @@ Feature requests are also welcome.
 Contributors
 ------------
 
-- Scott Andrews <andrewss@vmware.com>
-- Mark Fisher <markfisher@vmware.com>
+- Scott Andrews <sandrews@gopivotal.com>
+- Mark Fisher <misher@gopivotal.com>
 
 Please see CONTRIBUTING.md for details on how to contribute to this project.
 
