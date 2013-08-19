@@ -3,7 +3,7 @@
 	"version": "0.3.3-pre",
 	"main": "./msgs.js",
 	"dependencies": {
-		"when": "~1"
+		"when": ">1.0.0 <=3.0.0"
 	},
 	"ignore": [
 		".*",

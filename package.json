@@ -28,7 +28,7 @@
 		}
 	],
 	"dependencies": {
-		"when": "~1"
+		"when": ">1.0.0 <=3.0.0"
 	},
 	"devDependencies": {
 		"test-support": "~0.2",
