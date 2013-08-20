@@ -28,7 +28,7 @@
 		}
 	],
 	"optionalDependencies": {
-		"when": "~2.0"
+		"when": "~2"
 	},
 	"devDependencies": {
 		"wire": "~0.10",

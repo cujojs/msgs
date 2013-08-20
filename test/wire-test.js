@@ -100,6 +100,7 @@
 							event: function () { return 'hello'; },
 							next: function (message) {
 								assert.same('HELLO', message);
+								done();
 							}
 						},
 						after: {
@@ -117,7 +118,7 @@
 						return message.toUpperCase();
 					}, { input: 'world' });
 					spec.source.event();
-				}).then(undef, fail).always(done);
+				}).then(undef, fail);
 			},
 			'should create channels with the channels factory': {
 				'returning the integration bus': function (done) {
