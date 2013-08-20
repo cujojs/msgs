@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 the original author or authors
+ * Copyright 2012-2013 the original author or authors
  * @license MIT, see LICENSE.txt for details
  *
  * @author Scott Andrews
@@ -56,7 +56,7 @@ config['msgs:browser'] = {
 		// loaded as resources
 	],
 	tests: [
-		//'test/**/*-test-browser.js',
+		'test/**/*-test-browser.js',
 		'test/**/*-test.js',
 		'test/run.js'
 	],
