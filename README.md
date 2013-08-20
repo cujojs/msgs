@@ -181,6 +181,7 @@ Change Log
 - exchangeChannel providing basic subscription within a channel for topics
 - topicExchangeChannel providing AMQP style topic bindings
 - adapters for DOM events
+- adapters for Backbone.js events
 - removed bus.bridge() use bus.forward() instead
 - renamed bus.transform() to bus.transformer()
 - renamed WebWorker to MessagePort
