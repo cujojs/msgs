@@ -8,14 +8,17 @@
 (function (buster, define) {
 	'use strict';
 
-	var assert, refute, fail;
+	var assert, refute, fail, sinon;
 
 	assert = buster.assert;
 	refute = buster.refute;
 	fail = buster.assertions.fail;
+	sinon = buster.sinon;
 
-	function StubBackboneObject() {}
-	StubBackboneObject.prototype = {
+	function MockBackboneObject() {
+		this.trigger = sinon.spy();
+	}
+	MockBackboneObject.prototype = {
 		on: function (type, handler) {
 			this[type] = handler;
 		}
@@ -39,7 +42,7 @@
 				'': function (done) {
 					var bbobj, data;
 
-					bbobj = new StubBackboneObject();
+					bbobj = new MockBackboneObject();
 					bus.channel('messages');
 					bus.inboundBackboneAdapter(bbobj, { output: 'messages', events: 'save' });
 
@@ -55,7 +58,7 @@
 				'defaulting to all if events options is not defined': function (done) {
 					var bbobj, data;
 
-					bbobj = new StubBackboneObject();
+					bbobj = new MockBackboneObject();
 					bus.channel('messages');
 					bus.inboundBackboneAdapter(bbobj, { output: 'messages' });
 
@@ -73,8 +76,7 @@
 				'': function () {
 					var bbobj, data;
 
-					bbobj = new StubBackboneObject();
-					bbobj.trigger = this.spy();
+					bbobj = new MockBackboneObject();
 					bus.channel('messages');
 					bus.outboundBackboneAdapter(bbobj, { input: 'messages', events: 'save' });
 
@@ -86,8 +88,7 @@
 				'with multiple event targets': function () {
 					var bbobj, data;
 
-					bbobj = new StubBackboneObject();
-					bbobj.trigger = this.spy();
+					bbobj = new MockBackboneObject();
 					bus.channel('messages');
 					bus.outboundBackboneAdapter(bbobj, { input: 'messages', events: 'save update' });
 
@@ -100,8 +101,7 @@
 				'with the payload applied': function () {
 					var bbobj, data;
 
-					bbobj = new StubBackboneObject();
-					bbobj.trigger = this.spy();
+					bbobj = new MockBackboneObject();
 					bus.channel('messages');
 					bus.outboundBackboneAdapter(bbobj, { input: 'messages', events: 'save', apply: true });
 
@@ -112,7 +112,7 @@
 				},
 				'throwing if \'events\' options is not defined': function () {
 					try {
-						bus.outboundBackboneAdapter(new StubBackboneObject(), { input: 'messages' });
+						bus.outboundBackboneAdapter(new MockBackboneObject(), { input: 'messages' });
 						fail();
 					}
 					catch (e) {

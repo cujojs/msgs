@@ -17,7 +17,8 @@ config['msgs:node'] = {
 		'test/**/*-test.js'
 	],
 	testHelpers: [
-		'test/buster-assertions.js'
+		'test/buster-assertions.js',
+		'test/buster-sinon.js'
 	]
 };
 
@@ -28,7 +29,8 @@ config['msgs:integration'] = {
 		'test/**/*-test-integration.js'
 	],
 	testHelpers: [
-		'test/buster-assertions.js'
+		'test/buster-assertions.js',
+		'test/buster-sinon.js'
 	]
 };
 
@@ -61,6 +63,7 @@ config['msgs:browser'] = {
 		'test/run.js'
 	],
 	testHelpers: [
-		'test/buster-assertions.js'
+		'test/buster-assertions.js',
+		'test/buster-sinon.js'
 	]
 };

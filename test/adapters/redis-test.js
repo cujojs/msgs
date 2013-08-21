@@ -8,14 +8,18 @@
 (function (buster, define) {
 	'use strict';
 
-	var assert, refute, fail;
+	var assert, refute, fail, sinon;
 
 	assert = buster.assert;
 	refute = buster.refute;
 	fail = buster.assertions.fail;
+	sinon = buster.sinon;
 
-	function StubClient() {}
-	StubClient.prototype = {
+	function MockClient() {
+		this.publish = sinon.spy();
+		this.subscribe = sinon.spy();
+	}
+	MockClient.prototype = {
 		on: function (type, handler) {
 			this[type] = handler;
 		}
@@ -38,8 +42,7 @@
 			'should receive Redis messages with inboundRedisAdapter': function (done) {
 				var client, msg;
 
-				client = new StubClient();
-				client.subscribe = this.spy();
+				client = new MockClient();
 				bus.channel('messages');
 				bus.inboundRedisAdapter(client, 'topic', { output: 'messages' });
 
@@ -56,8 +59,7 @@
 			'should write messages to the client with outboundRedisAdapter': function () {
 				var client, msg;
 
-				client = new StubClient();
-				client.publish = this.spy();
+				client = new MockClient();
 				bus.channel('messages');
 				bus.outboundRedisAdapter(client, 'topic', { input: 'messages' });
 
@@ -69,9 +71,7 @@
 			'should bridge sending and receiving messages': function () {
 				var client, msg;
 
-				client = new StubClient();
-				client.subscribe = this.spy();
-				client.publish = this.spy();
+				client = new MockClient();
 				bus.channel('messages');
 				bus.redisGateway(function () { return client; }, 'topic', { input: 'messages', output: 'messages' });
 
@@ -85,11 +85,12 @@
 			'should pass client error events': function (done) {
 				var client, msg;
 
-				client = new StubClient();
+				client = new MockClient();
 				bus.channel('messages');
-				bus.redisGateway(function () { return client; }, 'topic', { error: 'messages', input: 'messages' });
+				bus.channel('error');
+				bus.redisGateway(function () { return client; }, 'topic', { error: 'error', input: 'messages' });
 
-				bus.on('messages', function (payload) {
+				bus.on('error', function (payload) {
 					assert.same(msg, payload);
 					done();
 				});

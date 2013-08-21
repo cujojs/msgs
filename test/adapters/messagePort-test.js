@@ -8,14 +8,17 @@
 (function (buster, define) {
 	'use strict';
 
-	var assert, refute, fail;
+	var assert, refute, fail, sinon;
 
 	assert = buster.assert;
 	refute = buster.refute;
 	fail = buster.assertions.fail;
+	sinon = buster.sinon;
 
-	function StubWorker() {}
-	StubWorker.prototype = {
+	function MockWorker() {
+		this.postMessage = sinon.spy();
+	}
+	MockWorker.prototype = {
 		addEventListener: function (type, handler) {
 			this[type] = handler;
 		}
@@ -38,7 +41,7 @@
 			'should receive messages with inboundMessagePortAdapter': function (done) {
 				var worker, data;
 
-				worker = new StubWorker();
+				worker = new MockWorker();
 				bus.channel('messages');
 				bus.inboundMessagePortAdapter(worker, { output: 'messages' });
 
@@ -53,8 +56,7 @@
 			'should post messages to the worker with outboundMessagePortAdapter': function () {
 				var worker, data;
 
-				worker = new StubWorker();
-				worker.postMessage = this.spy();
+				worker = new MockWorker();
 				bus.channel('messages');
 				bus.outboundMessagePortAdapter(worker, { input: 'messages' });
 
@@ -66,8 +68,7 @@
 			'should bridge sending and receiving data': function () {
 				var worker, data;
 
-				worker = new StubWorker();
-				worker.postMessage = this.spy();
+				worker = new MockWorker();
 				bus.channel('messages');
 				bus.messagePortGateway(worker, { input: 'messages', output: 'messages' });
 
@@ -79,7 +80,7 @@
 			'should pass worker error events': function (done) {
 				var worker, data;
 
-				worker = new StubWorker();
+				worker = new MockWorker();
 				bus.channel('messages');
 				bus.messagePortGateway(worker, { error: 'messages' });
 

@@ -8,14 +8,17 @@
 (function (buster, define) {
 	'use strict';
 
-	var assert, refute, fail;
+	var assert, refute, fail, sinon;
 
 	assert = buster.assert;
 	refute = buster.refute;
 	fail = buster.assertions.fail;
+	sinon = buster.sinon;
 
-	function StubStream() {}
-	StubStream.prototype = {
+	function MockStream() {
+		this.write = sinon.spy();
+	}
+	MockStream.prototype = {
 		on: function (type, handler) {
 			this[type] = handler;
 		}
@@ -38,7 +41,7 @@
 			'should receive data events as messages with inboundStreamAdapter': function (done) {
 				var stream, data;
 
-				stream = new StubStream();
+				stream = new MockStream();
 				bus.channel('messages');
 				bus.inboundStreamAdapter(stream, { output: 'messages' });
 
@@ -53,8 +56,7 @@
 			'should write messages to the stream with outboundStreamAdapter': function () {
 				var stream, data;
 
-				stream = new StubStream();
-				stream.write = this.spy();
+				stream = new MockStream();
 				bus.channel('messages');
 				bus.outboundStreamAdapter(stream, { input: 'messages' });
 
@@ -66,8 +68,7 @@
 			'should write messages to the stream until closed': function () {
 				var stream, data;
 
-				stream = new StubStream();
-				stream.write = this.spy();
+				stream = new MockStream();
 				bus.channel('messages');
 				bus.outboundStreamAdapter(stream, { input: 'messages' });
 
@@ -84,8 +85,7 @@
 			'should bridge sending and receiving data': function () {
 				var stream, data;
 
-				stream = new StubStream();
-				stream.write = this.spy();
+				stream = new MockStream();
 				bus.channel('messages');
 				bus.streamGateway(stream, { input: 'messages', output: 'messages' });
 
@@ -97,7 +97,7 @@
 			'should pass stream error events': function (done) {
 				var stream, data;
 
-				stream = new StubStream();
+				stream = new MockStream();
 				bus.channel('messages');
 				bus.streamGateway(stream, { error: 'messages' });
 

@@ -34,6 +34,7 @@
 		"wire": "~0.10",
 		"sockjs-client": "~0.1",
 		"test-support": "~0.3",
+		"sinon": "~1.7",
 		"curl": "https://github.com/cujojs/curl/tarball/0.7.3",
 		"poly": "https://github.com/cujojs/poly/tarball/0.5.1"
 	},

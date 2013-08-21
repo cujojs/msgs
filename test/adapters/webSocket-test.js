@@ -8,14 +8,17 @@
 (function (buster, define) {
 	'use strict';
 
-	var assert, refute, fail;
+	var assert, refute, fail, sinon;
 
 	assert = buster.assert;
 	refute = buster.refute;
 	fail = buster.assertions.fail;
+	sinon = buster.sinon;
 
-	function StubSocket() {}
-	StubSocket.prototype = {
+	function MockSocket() {
+		this.send = sinon.spy();
+	}
+	MockSocket.prototype = {
 		addEventListener: function (type, handler) {
 			this[type] = handler;
 		}
@@ -38,7 +41,7 @@
 			'should receive messages with inboundWebSocketAdapter': function (done) {
 				var socket, data;
 
-				socket = new StubSocket();
+				socket = new MockSocket();
 				bus.channel('messages');
 				bus.inboundWebSocketAdapter(socket, { output: 'messages' });
 
@@ -53,8 +56,7 @@
 			'should write messages to the socket with outboundWebSocketAdapter': function () {
 				var socket, data;
 
-				socket = new StubSocket();
-				socket.send = this.spy();
+				socket = new MockSocket();
 				bus.channel('messages');
 				bus.outboundWebSocketAdapter(socket, { input: 'messages' });
 
@@ -66,8 +68,7 @@
 			'should write messages to the socket until closed': function () {
 				var socket, data;
 
-				socket = new StubSocket();
-				socket.send = this.spy();
+				socket = new MockSocket();
 				bus.channel('messages');
 				bus.outboundWebSocketAdapter(socket, { input: 'messages' });
 
@@ -84,8 +85,7 @@
 			'should bridge sending and receiving data': function () {
 				var socket, data;
 
-				socket = new StubSocket();
-				socket.send = this.spy();
+				socket = new MockSocket();
 				bus.channel('messages');
 				bus.webSocketGateway(socket, { input: 'messages', output: 'messages' });
 
@@ -97,7 +97,7 @@
 			'should pass socket error events': function (done) {
 				var socket, data;
 
-				socket = new StubSocket();
+				socket = new MockSocket();
 				bus.channel('messages');
 				bus.webSocketGateway(socket, { error: 'messages' });
 
