@@ -512,12 +512,13 @@
 			 *
 			 * @param {string|Channel} channel subscription target
 			 * @param {Function} listener receiver of messages from the target channel.
-			 *   The message payload is provided as an argument to the listener.
+			 *   The message payload and headeres are provided as arguments to the
+			 *   listener.
 			 * @returns {Handler} the subscription handler, needed to unsubscribe
 			 */
 			on: function on(channel, listener) {
 				return this._handler(undef, function (message) {
-					listener(message.payload);
+					listener(message.payload, message.headers);
 				}, this.noopChannel, channel);
 			},
 

@@ -46,11 +46,11 @@
 					bus.channel('messages');
 					bus.inboundBackboneAdapter(bbobj, { output: 'messages', events: 'save' });
 
-					bus.transformer(function (payload, headers) {
+					bus.on('messages', function (payload, headers) {
 						assert.same(data, payload);
 						assert.equals([data], headers.args);
 						done();
-					}, { input: 'messages' });
+					});
 
 					data = {};
 					bbobj.save(data);
@@ -62,11 +62,11 @@
 					bus.channel('messages');
 					bus.inboundBackboneAdapter(bbobj, { output: 'messages' });
 
-					bus.transformer(function (payload, headers) {
+					bus.on('messages', function (payload, headers) {
 						assert.same(data, payload);
 						assert.equals([data], headers.args);
 						done();
-					}, { input: 'messages' });
+					});
 
 					data = {};
 					bbobj.all(data);
