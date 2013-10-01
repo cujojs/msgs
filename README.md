@@ -157,7 +157,7 @@ Feature requests are also welcome.
 Contributors
 ------------
 
-- Scott Andrews <sandrews@gopivotal.com>
+- Scott Andrews <scothis@gmail.com>
 - Mark Fisher <misher@gopivotal.com>
 
 Please see CONTRIBUTING.md for details on how to contribute to this project.
