@@ -21,8 +21,8 @@ SOFTWARE.
 
 ---
 
-Code published by Scott Andrews is copyright Pivotal and licensed under the
-above terms.
+Code published by Scott Andrews prior to 2013-09-21 is copyright Pivotal and
+licensed under the above terms.
 
 GoPivotal, Inc.
 1900 South Norfolk Street, Suite 125
