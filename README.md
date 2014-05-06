@@ -175,7 +175,7 @@ msgs.js is made available under the MIT license.  See LICENSE.txt for details.
 Change Log
 ----------
 
-.next
+0.4.0
 - topic based channels using the form 'channelName!topic' anywhere a channel is resolved by name
 - STOMP - support for subscribing to remote topics
 - exchangeChannel providing basic subscription within a channel for topics
