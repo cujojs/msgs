@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 the original author or authors
+ * Copyright 2012-2014 the original author or authors
  * @license MIT, see LICENSE.txt for details
  *
  * @author Scott Andrews
@@ -29,24 +29,24 @@
 				bus.destroy();
 			},
 
-			'should resolve the gateway promise when there is no more work to do': function (done) {
+			'should resolve the gateway promise when there is no more work to do': function () {
 				bus.channel('target').subscribe(bus.transformer(function (payload) {
 					return 'Knock, knock? ' + payload;
 				}));
-				bus.inboundGateway('target')('Who\'s there?').then(function (response) {
+				return bus.inboundGateway('target')('Who\'s there?').then(function (response) {
 					assert.same('Knock, knock? Who\'s there?', response);
-				}).otherwise(fail).always(done);
+				}).otherwise(fail);
 			},
-			'should reject the gateway promise when an error is encountered': function (done) {
+			'should reject the gateway promise when an error is encountered': function () {
 				bus.channel('target').subscribe(bus.transformer(function (/* payload */) {
 					throw new Error();
 				}));
-				bus.inboundGateway('target')('Who\'s there?').then(
+				return bus.inboundGateway('target')('Who\'s there?').then(
 					fail,
 					function (/* response */) {
 						assert(true);
 					}
-				).always(done);
+				);
 			},
 			'should apply a sequence number to gateway messages': function () {
 				var handler, gateway;

@@ -166,7 +166,7 @@ Please see CONTRIBUTING.md for details on how to contribute to this project.
 Copyright
 ---------
 
-Copyright 2012-2013 the original author or authors
+Copyright 2012-2014 the original author or authors
 
 msgs.js is made available under the MIT license.  See LICENSE.txt for details.
 
@@ -189,7 +189,7 @@ Change Log
 - moved .inboundGateway() and .outboundGateway() from msgs into msgs/gateways, when.js is now an optional dependency
 - bus.on('channel', listener) - syntatic sugar over outboundAdapter
 - receive'ing from a queue returns the full message, not just the payload
-- update when.js to 2.x, dropping 1.x
+- update when.js to 3.x, dropping 1.x
 
 0.3.3
 - extended when.js version to allow when@2.x

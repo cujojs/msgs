@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 the original author or authors
+ * Copyright 2013-2014 the original author or authors
  * @license MIT, see LICENSE.txt for details
  *
  * @author Scott Andrews
@@ -25,24 +25,24 @@
 		require('msgs/channels/pubsub');
 
 		buster.testCase('msgs/wire', {
-			'should support plugin namespaces': function (done) {
+			'should support plugin namespaces': function () {
 				var spec = {
 					bus: { $ref: 'int:bus!' },
 					plugins: [{ module: 'msgs/wire', $ns: 'int' }]
 				};
-				wire(spec, { require: require }).then(function (spec) {
+				return wire(spec, { require: require }).then(function (spec) {
 					var bus = spec.bus;
 					refute.same(msgs, bus);
 					assert.same(msgs.prototype, bus.prototype);
-				}).then(undef, fail).always(done);
+				}).then(undef, fail);
 			},
-			'should chain bus from parent specs': function (done) {
+			'should chain bus from parent specs': function () {
 				var spec = {
 					bus: { channels: 'parent' },
 					child: { wire: { spec: 'msgs/test/wire/nestedBus' } },
 					plugins: [{ module: 'msgs/wire' }]
 				};
-				wire(spec, { require: require }).then(function (spec) {
+				return wire(spec, { require: require }).then(function (spec) {
 					var parent = spec.bus;
 					return when(spec.child, function (spec) {
 						var d, child;
@@ -63,34 +63,34 @@
 
 						return d.promise;
 					});
-				}).then(undef, fail).always(done);
+				}).then(undef, fail);
 			},
-			'should resolve the message bus for bus!': function (done) {
+			'should resolve the message bus for bus!': function () {
 				var spec = {
 					bus: { $ref: 'bus!' },
 					plugins: [{ module: 'msgs/wire' }]
 				};
-				wire(spec, { require: require }).then(function (spec) {
+				return wire(spec, { require: require }).then(function (spec) {
 					var bus = spec.bus;
 					refute.same(msgs, bus);
 					assert.same(msgs.prototype, bus.prototype);
-				}).then(undef, fail).always(done);
+				}).then(undef, fail);
 			},
-			'should destroy the message bus when the spec is destroyed': function (done) {
+			'should destroy the message bus when the spec is destroyed': function () {
 				var spec, spy;
 				spy = this.spy;
 				spec = {
 					bus: { $ref: 'bus!' },
 					plugins: [{ module: 'msgs/wire' }]
 				};
-				wire(spec, { require: require }).then(function (spec) {
+				return wire(spec, { require: require }).then(function (spec) {
 					var bus, destroySpy;
 					bus = spec.bus;
 					destroySpy = bus.destroy = spy(bus.destroy);
 					return spec.destroy().then(function () {
 						assert.called(destroySpy);
 					});
-				}).then(undef, fail).always(done);
+				}).then(undef, fail);
 			},
 			'should send messages to the target channel as an inbound gateway': function (done) {
 				var spec = {
@@ -121,7 +121,7 @@
 				}).then(undef, fail);
 			},
 			'should create channels with the channels factory': {
-				'returning the integration bus': function (done) {
+				'returning the integration bus': function () {
 					var spec = {
 						bus: { $ref: 'bus!' },
 						integration: {
@@ -129,11 +129,11 @@
 						},
 						plugins: [{ module: 'msgs/wire' }]
 					};
-					wire(spec, { require: require }).then(function (spec) {
+					return wire(spec, { require: require }).then(function (spec) {
 						assert.same(spec.bus, spec.integration);
-					}).then(undef, fail).always(done);
+					}).then(undef, fail);
 				},
-				'with a single channel name': function (done) {
+				'with a single channel name': function () {
 					var spec = {
 						bus: { $ref: 'bus!' },
 						integration: {
@@ -141,11 +141,11 @@
 						},
 						plugins: [{ module: 'msgs/wire' }]
 					};
-					wire(spec, { require: require }).then(function (spec) {
+					return wire(spec, { require: require }).then(function (spec) {
 						assert.same('default', spec.bus.resolveChannel('world').type);
-					}).then(undef, fail).always(done);
+					}).then(undef, fail);
 				},
-				'with an array of channel names': function (done) {
+				'with an array of channel names': function () {
 					var spec = {
 						bus: { $ref: 'bus!' },
 						integration: {
@@ -153,12 +153,12 @@
 						},
 						plugins: [{ module: 'msgs/wire' }]
 					};
-					wire(spec, { require: require }).then(function (spec) {
+					return wire(spec, { require: require }).then(function (spec) {
 						assert.same('default', spec.bus.resolveChannel('hello').type);
 						assert.same('default', spec.bus.resolveChannel('world').type);
-					}).then(undef, fail).always(done);
+					}).then(undef, fail);
 				},
-				'with the desired type': function (done) {
+				'with the desired type': function () {
 					var spec = {
 						bus: { $ref: 'bus!' },
 						integration: {
@@ -168,11 +168,11 @@
 						},
 						plugins: [{ module: 'msgs/wire' }]
 					};
-					wire(spec, { require: require }).then(function (spec) {
+					return wire(spec, { require: require }).then(function (spec) {
 						assert.same('pubsub', spec.bus.resolveChannel('world').type);
-					}).then(undef, fail).always(done);
+					}).then(undef, fail);
 				},
-				'failing for unknown channel type': function (done) {
+				'failing for unknown channel type': function () {
 					var spec = {
 						bus: { $ref: 'bus!' },
 						integration: {
@@ -182,16 +182,16 @@
 						},
 						plugins: [{ module: 'msgs/wire' }]
 					};
-					wire(spec, { require: require }).then(
+					return wire(spec, { require: require }).then(
 						fail,
 						function (reason) {
 							assert(reason.indexOf('Unable to define channels:') === 0);
 						}
-					).always(done);
+					);
 				}
 			},
 			'should create outboundAdapters for the subscribe facet': {
-				'for a single target': function (done) {
+				'for a single target': function () {
 					var spec = {
 						component: {
 							literal: {
@@ -208,12 +208,12 @@
 						},
 						plugins: [{ module: 'msgs/wire' }]
 					};
-					wire(spec, { require: require }).then(function (spec) {
+					return wire(spec, { require: require }).then(function (spec) {
 						spec.bus.send('world', 'hello');
 						assert.called(spec.component.receive);
-					}).then(undef, fail).always(done);
+					}).then(undef, fail);
 				},
-				'for multiple targets': function (done) {
+				'for multiple targets': function () {
 					var spec = {
 						component: {
 							literal: {
@@ -237,11 +237,11 @@
 						},
 						plugins: [{ module: 'msgs/wire' }]
 					};
-					wire(spec, { require: require }).then(function (spec) {
+					return wire(spec, { require: require }).then(function (spec) {
 						spec.bus.send('world', 'hello');
 						assert.called(spec.component.receive);
 						assert.called(spec.altReceive);
-					}).then(undef, fail).always(done);
+					}).then(undef, fail);
 				}
 			}
 		});
